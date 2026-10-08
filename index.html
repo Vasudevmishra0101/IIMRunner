@@ -130,102 +130,162 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px 32px;justify-content:space-bet
 #over .row{display:flex;gap:8px;margin:14px 0}
 #over .share{justify-content:center}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.hero video{display:none}}
+/* ===== v2 redesign: dark neon game look ===== */
+:root{--bg:#07040f;--bg2:#0f0a1f;--card:rgba(255,255,255,.05);--line:rgba(255,255,255,.12);--ink:#f5f2ff;--mute:#a79fc4;--gold:#ffc83d;--gold2:#ff9d1c;--mag:#ff3d8b;--vio:#7c4dff;--cy:#37e6ff}
+body{background:var(--bg);overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;z-index:-1;background:radial-gradient(900px 600px at 85% -5%,rgba(124,77,255,.35),transparent 60%),radial-gradient(700px 500px at -5% 35%,rgba(255,61,139,.2),transparent 60%),radial-gradient(800px 500px at 60% 105%,rgba(55,230,255,.15),transparent 60%)}
+.btn{background:linear-gradient(135deg,var(--mag),var(--vio));color:#fff;box-shadow:0 0 0 1px rgba(255,255,255,.2) inset,0 10px 40px rgba(124,77,255,.55)}
+.btn.gold{background:linear-gradient(180deg,var(--gold),var(--gold2));color:#1a1200;box-shadow:0 10px 36px rgba(255,157,28,.4)}
+.btn.ghost{background:rgba(255,255,255,.06);border:1px solid var(--line);box-shadow:none;color:var(--ink)}
+section{padding:64px 0}
+.pill{position:sticky;top:12px;z-index:20;width:min(940px,100% - 24px);margin:12px auto 0;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 8px 8px 20px;border:1px solid var(--line);border-radius:999px;background:rgba(15,10,31,.65);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.pill .brand{font-weight:900;letter-spacing:.12em;font-size:13px;text-transform:uppercase}
+.pill .brand b{color:var(--gold)}
+.pill .links{display:flex;gap:22px;font-size:14px}
+.pill .links a{color:var(--mute);text-decoration:none}.pill .links a:hover{color:#fff}
+.pill .btn{padding:10px 22px;font-size:14px}
+@media(max-width:700px){.pill .links{display:none}}
+.v2hero{display:grid;grid-template-columns:1.05fr 1fr;gap:40px;align-items:center;padding:56px 0 40px;min-height:calc(100svh - 70px)}
+@media(max-width:900px){.v2hero{grid-template-columns:1fr;min-height:0;padding-top:36px}}
+.chip{display:inline-flex;gap:8px;align-items:center;border:1px solid var(--line);background:var(--card);border-radius:999px;padding:6px 14px;font-size:13px;color:var(--mute);margin-bottom:20px}
+.chip i{width:8px;height:8px;border-radius:50%;background:#46ff9a;box-shadow:0 0 10px #46ff9a}
+.v2hero h1{font-size:clamp(46px,8vw,92px);line-height:.95;letter-spacing:-.035em;margin:0 0 18px;font-weight:900;text-shadow:none}
+.grad{background:linear-gradient(100deg,var(--gold),var(--mag) 55%,var(--vio));-webkit-background-clip:text;background-clip:text;color:transparent}
+.v2hero .hook{font-size:clamp(18px,2.2vw,24px);color:#d9d3f0;margin:0 0 30px;max-width:30ch;text-shadow:none}
+.v2hero .note{margin-top:14px}
+.stage{position:relative}
+.stage::before{content:"";position:absolute;inset:-6%;border-radius:40px;background:conic-gradient(from 200deg,var(--vio),var(--mag),var(--gold),var(--cy),var(--vio));filter:blur(46px);opacity:.55}
+.stage .frame{position:relative;border-radius:28px;overflow:hidden;border:1px solid rgba(255,255,255,.25);aspect-ratio:4/3.1;background:#000;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.stage video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.float{position:absolute;z-index:2;border:1px solid var(--line);background:rgba(15,10,31,.75);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-radius:16px;padding:10px 16px;font-size:13px;color:var(--mute);line-height:1.3}
+.float b{display:block;color:#fff;font-size:20px}
+.float.a{left:-14px;bottom:26px}.float.b{right:-10px;top:28px}
+@media(max-width:600px){.float.a{left:6px}.float.b{right:6px}}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:0 0 8px}
+.stats div{border:1px solid var(--line);background:var(--card);border-radius:18px;padding:18px 20px}
+.stats b{display:block;font-size:clamp(26px,4vw,38px)}
+.stats span{color:var(--mute);font-size:14px}
+.v2h{font-size:clamp(28px,4.4vw,44px);line-height:1.1;margin:0 0 10px;letter-spacing:-.02em}
+.glass{border:1px solid var(--line);background:var(--card);border-radius:22px;padding:24px;transition:transform .2s,border-color .2s}
+.glass:hover{transform:translateY(-4px);border-color:rgba(255,255,255,.3)}
+.glass .ic{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;font-size:24px;background:linear-gradient(135deg,rgba(255,61,139,.35),rgba(124,77,255,.35));margin-bottom:14px}
+.glass h3{margin:0 0 6px;font-size:18px}.glass p{margin:0;color:var(--mute);font-size:15px}
+.cards4{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.shots3{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.shots3 button{padding:0;border:1px solid var(--line);border-radius:20px;overflow:hidden;background:#000;cursor:zoom-in}
+.shots3 img{width:100%;aspect-ratio:16/10;object-fit:cover;transition:transform .4s}
+.shots3 button:hover img{transform:scale(1.05)}
+.steps{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.steps .glass{text-align:center}
+.steps .big{font-size:40px;margin-bottom:8px}
+.cta{padding:0}
+.ctabox{border-radius:30px;padding:clamp(32px,6vw,64px);text-align:center;border:1px solid rgba(255,255,255,.2);background:linear-gradient(135deg,rgba(255,61,139,.35),rgba(124,77,255,.4)),var(--bg2)}
+.ctabox h2{font-size:clamp(28px,5vw,52px);margin:0 0 10px;letter-spacing:-.02em}
+.ctabox p{color:#e5defa;margin:0 0 24px}
+#board{background:var(--card);border-color:var(--line)}
+input,textarea{background:rgba(255,255,255,.06)}
+footer{border-color:var(--line)}
 </style>
 </head>
 <body>
 
-<header class="hero" id="top">
-  <picture class="bgimg"><img src="media/hero-poster.jpg" alt="" width="1280" height="720" fetchpriority="high" style="width:100%;height:100%;object-fit:cover"></picture>
-  <video autoplay muted loop playsinline preload="metadata" poster="media/hero-poster.jpg" aria-hidden="true">
-    <source src="media/hero.webm" type="video/webm">
-    <source src="media/hero.mp4" type="video/mp4">
-  </video>
-  <nav><div class="wrap"><div class="brand">IIM Udaipur <b>Run</b></div>
-    <div><a class="link" href="#how">How to play</a><a class="link" href="#places">Campus</a><a class="link" href="#leaderboard">Leaderboard</a></div></div></nav>
-  <div class="wrap">
+<div class="pill" id="top">
+  <div class="brand">IIM Udaipur <b>Run</b></div>
+  <div class="links"><a href="#features">Features</a><a href="#gallery">Screens</a><a href="#how">How to play</a><a href="#leaderboard">Leaderboard</a></div>
+  <button class="btn gold" id="playBtn" data-track="play_click_hero">▶ Play Now</button>
+</div>
+
+<main>
+<section class="v2sec"><div class="wrap v2hero">
+  <div>
     <div id="challenge"></div>
-    <span class="kicker">Free · plays in your browser</span>
-    <h1>IIM Udaipur <span>Run</span></h1>
-    <p class="hook">Outrun the leopard. Survive campus.</p>
-    <div class="cta">
-      <button class="btn big" id="playBtn" data-track="play_click_hero">▶ Play Now</button>
+    <span class="chip"><i></i> Free · plays in your browser</span>
+    <h1>Outrun the <span class="grad">leopard.</span><br>Survive campus.</h1>
+    <p class="hook">Late for the 9 AM quiz. A leopard on your tail. Run the real IIM Udaipur campus.</p>
+    <div class="cta-row" style="display:flex;flex-wrap:wrap;gap:12px">
+      <button class="btn big" id="playBtn2" data-track="play_click_hero2">▶ Play Now</button>
       <a class="btn ghost" href="#how">How to play</a>
     </div>
-    <p class="note">Best in Chrome. Desktop gives the best graphics; phones work too (about a 45 MB first load, so use Wi-Fi).</p>
+    <p class="note">Best in Chrome. Desktop gives the best graphics; phones work too (about 45 MB first load, use Wi-Fi).</p>
     <div class="proof">
       <span>🎓 Built by an IIM Udaipur student</span>
       <span id="plays" hidden>🏃 <b id="playsN">0</b> plays</span>
-      <span>🐆 Real campus, real route</span>
     </div>
   </div>
-</header>
+  <div class="stage">
+    <div class="frame">
+      <video autoplay muted loop playsinline preload="metadata" poster="media/hero-poster.jpg" aria-label="Gameplay">
+        <source src="media/hero.webm" type="video/webm"><source src="media/hero.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="float b">Golden-hour<b>3D campus</b></div>
+    <div class="float a">Chased by<b>🐆 a leopard</b></div>
+  </div>
+</div></section>
 
-<main>
+<section style="padding-top:0"><div class="wrap">
+  <div class="stats">
+    <div><b>12</b><span>real campus landmarks</span></div>
+    <div><b>∞</b><span>endless run, it loops</span></div>
+    <div><b>3</b><span>moves: swipe, jump, slide</span></div>
+    <div><b>Free</b><span>no download, no sign-up</span></div>
+  </div>
+</div></section>
+
 <section id="features"><div class="wrap">
-  <h2>Late for the 9 AM quiz. Then the leopard shows up.</h2>
-  <p class="lead">You wake at 8:55 in your hostel room. The quiz doors close at 9:00. The shortcut across campus has other plans.</p>
-  <div class="grid">
-    <div class="card"><div class="ic">🏫</div><h3>3D campus run</h3><p>Sprint through the gate, lakefront, plaza, courtyard and skywalk, at golden hour.</p></div>
-    <div class="card"><div class="ic">🐆</div><h3>Leopard chase</h3><p>It's gaining on you. Trip twice in seven seconds and it's over.</p></div>
-    <div class="card"><div class="ic">🐕</div><h3>Dogs &amp; obstacles</h3><p>Beagles, rocks, low walls, branches and pouncing leopards. Jump, slide or swerve.</p></div>
-    <div class="card"><div class="ic">☕</div><h3>Power-ups</h3><p>Grab a kulhad of chai for a 10-second coin magnet. Coins boost your score.</p></div>
-    <div class="card"><div class="ic">🏆</div><h3>High scores</h3><p>Beat your best, climb the board, challenge a batchmate.</p></div>
+  <h2 class="v2h">Why you'll replay it</h2>
+  <p class="lead">8:55 AM. Quiz doors close at 9:00. Take the shortcut.</p>
+  <div class="cards4">
+    <div class="glass"><div class="ic">🏫</div><h3>Real campus run</h3><p>Main gate, lakefront ghats, plaza, courtyard and the skywalk.</p></div>
+    <div class="glass"><div class="ic">🐆</div><h3>Leopard chase</h3><p>Trip twice in seven seconds and it catches you.</p></div>
+    <div class="glass"><div class="ic">🐕</div><h3>Dogs &amp; obstacles</h3><p>Beagles, rocks, walls and branches. Jump, slide or swerve.</p></div>
+    <div class="glass"><div class="ic">☕</div><h3>Chai power-up</h3><p>Grab a kulhad for a 10-second coin magnet.</p></div>
   </div>
 </div></section>
 
-<section id="gallery" style="background:var(--bg2)"><div class="wrap">
-  <h2>Screenshots</h2><p class="lead">Straight from the game.</p>
-  <div class="shots" id="shots">
+<section id="gallery"><div class="wrap">
+  <h2 class="v2h">Screenshots</h2>
+  <div class="shots3" id="shots">
     <button data-i="0"><img loading="lazy" src="media/shot1.jpg" alt="Running through the main gate at sunset"></button>
-    <button data-i="1"><img loading="lazy" src="media/shot2.jpg" alt="Collecting coins on the winding entry road"></button>
-    <button data-i="2"><img loading="lazy" src="media/shot3.jpg" alt="The leopard closing in on the lakefront ghats"></button>
-    <button data-i="3"><img loading="lazy" src="media/shot4.jpg" alt="Dodging obstacles on the plaza"></button>
-    <button data-i="4"><img loading="lazy" src="media/shot5.jpg" alt="Central Courtyard"></button>
-    <button data-i="5"><img loading="lazy" src="media/shot6.jpg" alt="Racing up the stairs to the academic block"></button>
+    <button data-i="1"><img loading="lazy" src="media/shot3.jpg" alt="The leopard closing in on the lakefront ghats"></button>
+    <button data-i="2"><img loading="lazy" src="media/shot5.jpg" alt="Central Courtyard"></button>
   </div>
-</div></section>
+  </div></section>
 
 <section id="how"><div class="wrap">
-  <h2>How to play</h2><p class="lead">Three moves. Tap, swipe or use the keyboard.</p>
-  <div class="keys">
-    <div class="ctl"><div class="big">↔️</div><div><h3>Change lane / turn</h3><p><kbd>←</kbd> <kbd>→</kbd> or <kbd>A</kbd> <kbd>D</kbd> · swipe left / right</p></div></div>
-    <div class="ctl"><div class="big">⤴️</div><div><h3>Jump</h3><p><kbd>↑</kbd> <kbd>W</kbd> <kbd>Space</kbd> · swipe up</p></div></div>
-    <div class="ctl"><div class="big">⤵️</div><div><h3>Slide</h3><p><kbd>↓</kbd> <kbd>S</kbd> · swipe down</p></div></div>
-    <div class="ctl"><div class="big">👆</div><div><h3>Start &amp; pause</h3><p>Tap or press any key to start · <kbd>Esc</kbd> / <kbd>P</kbd> pauses</p></div></div>
+  <h2 class="v2h">How to play</h2>
+  <div class="steps">
+    <div class="glass"><div class="big">↔️</div><h3>Lane / turn</h3><p><kbd>←</kbd> <kbd>→</kbd> or <kbd>A</kbd> <kbd>D</kbd><br>swipe left / right</p></div>
+    <div class="glass"><div class="big">⤴️</div><h3>Jump</h3><p><kbd>↑</kbd> <kbd>Space</kbd><br>swipe up</p></div>
+    <div class="glass"><div class="big">⤵️</div><h3>Slide</h3><p><kbd>↓</kbd> <kbd>S</kbd><br>swipe down</p></div>
+    <div class="glass"><div class="big">👆</div><h3>Start</h3><p>Tap or press any key<br><kbd>Esc</kbd> pauses</p></div>
   </div>
-  <p class="note">Tip: low walls need a jump, low branches need a slide. Miss a corner and you hit a building.</p>
-</div></section>
-
-<section id="places" style="background:var(--bg2)"><div class="wrap">
-  <h2>You'll recognise these places</h2>
-  <p class="lead">The route follows the real campus map, in running order.</p>
-  <ul class="lm">
-    <li><i>1</i>Main Gate</li><li><i>2</i>Winding Entry Road</li><li><i>3</i>Academic Clusters</li><li><i>4</i>Lakefront Ghats</li>
-    <li><i>5</i>Central Plaza</li><li><i>6</i>Central Courtyard</li><li><i>7</i>Main Academic Block</li><li><i>8</i>Skywalk</li>
-    <li><i>9</i>Amphitheatre</li><li><i>10</i>Student Hostels</li><li><i>11</i>Campus Pond</li><li><i>12</i>Faculty Housing</li>
-  </ul>
-  <p class="note">Distances are estimates, not survey data.</p>
+  <p class="note">Low walls need a jump, low branches need a slide. Miss a corner and you hit a building.</p>
 </div></section>
 
 <section id="leaderboard"><div class="wrap">
-  <h2>Leaderboard</h2><p class="lead" id="lbLead">Top 10 scores on this device.</p>
+  <h2 class="v2h">Leaderboard</h2><p class="lead" id="lbLead">Top 10 scores on this device.</p>
   <div class="lb">
     <ol id="board"></ol>
     <div>
       <h3 style="margin-top:0">Challenge a batchmate</h3>
-      <p class="lead" style="margin-bottom:8px">Send your score. They get a link that says to beat it.</p>
+      <p class="lead" style="margin-bottom:8px">Send your score. They get a link to beat it.</p>
       <div class="share" id="shareMain"></div>
-      <button class="btn" id="playBtn2" data-track="play_click_board">▶ Play &amp; beat it</button>
     </div>
   </div>
 </div></section>
 
-<section id="updates" style="background:var(--bg2)"><div class="wrap">
-  <h2>Feedback &amp; updates</h2>
-  <p class="lead">Found a bug? Want a new zone or a new animal? Tell me. Leave your email for new releases.</p>
+<section class="cta"><div class="wrap"><div class="ctabox">
+  <h2>Ready to run?</h2><p>It's 8:55. Go.</p>
+  <button class="btn gold big" id="playBtn3" data-track="play_click_cta">▶ Play Now</button>
+</div></div></section>
+
+<section id="updates"><div class="wrap">
+  <h2 class="v2h">Feedback &amp; updates</h2>
+  <p class="lead">Found a bug? Want a new zone? Tell me, and leave your email for new releases.</p>
   <form id="fb">
     <input name="email" type="email" placeholder="Email (optional)" autocomplete="email">
-    <textarea name="message" rows="4" placeholder="What should I fix or add?" required></textarea>
+    <textarea name="message" rows="3" placeholder="What should I fix or add?" required></textarea>
     <button class="btn" type="submit" data-track="feedback_submit">Send</button>
     <div class="thanks" id="thanks">Thanks! Got it.</div>
   </form>
@@ -368,7 +428,7 @@ function closeGame(){play.classList.remove("open");document.body.style.overflow=
   frame.src="about:blank";loaded=false;loading=false;clipDone=false;wake.style.display="block";$("#skip").style.display="";wake.currentTime=0;bar.style.display="none";status.textContent=""}
 $("#closeGame").onclick=closeGame;
 addEventListener("keydown",e=>{if(e.key==="Escape"&&lb.classList.contains("open"))lb.classList.remove("open")});
-for(const id of ["#playBtn","#playBtn2"])$(id).onclick=openGame;
+for(const id of ["#playBtn","#playBtn2","#playBtn3"])$(id).onclick=openGame;
 $("#oAgain").onclick=()=>{$("#over").classList.remove("open");const f=frame.src;frame.src="about:blank";setTimeout(()=>{frame.src=f;frame.onload=()=>frame.focus()},60);track("play_again")};
 
 /* messages from the game (scripts/main.gd _tell_page) */
@@ -399,7 +459,7 @@ $("#fb").onsubmit=async e=>{e.preventDefault();const f=new FormData(e.target);
 
 /* ---- start ---- */
 renderShare($("#shareMain"),0);loadBoard();loadPlays();
-if(matchMedia("(prefers-reduced-motion: reduce)").matches)document.querySelector(".hero video").remove();
+if(matchMedia("(prefers-reduced-motion: reduce)").matches)document.querySelector(".stage video").remove();
 </script>
 </body>
 </html>
