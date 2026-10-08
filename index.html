@@ -144,6 +144,7 @@ section{padding:64px 0}
 .pill .links{display:flex;gap:22px;font-size:14px}
 .pill .links a{color:var(--mute);text-decoration:none}.pill .links a:hover{color:#fff}
 .pill .btn{padding:10px 22px;font-size:14px}
+.mbtn{width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:rgba(255,255,255,.08);color:#fff;font-size:18px;cursor:pointer}.mbtn:hover{background:rgba(255,255,255,.16)}.mbtn.on{box-shadow:0 0 0 2px var(--mag)}
 @media(max-width:700px){.pill .links{display:none}}
 .v2hero{display:grid;grid-template-columns:1.05fr 1fr;gap:40px;align-items:center;padding:56px 0 40px;min-height:calc(100svh - 70px)}
 @media(max-width:900px){.v2hero{grid-template-columns:1fr;min-height:0;padding-top:36px}}
@@ -192,7 +193,7 @@ footer{border-color:var(--line)}
 <div class="pill" id="top">
   <div class="brand">IIM Udaipur <b>Run</b></div>
   <div class="links"><a href="#features">Features</a><a href="#gallery">Screens</a><a href="#how">How to play</a><a href="#leaderboard">Leaderboard</a></div>
-  <button class="btn gold" id="playBtn" data-track="play_click_hero">▶ Play Now</button>
+  <div style="display:flex;gap:8px;align-items:center"><button class="mbtn" id="musicBtn" aria-label="Music on/off" title="Music">🔇</button><button class="btn gold" id="playBtn" data-track="play_click_hero">▶ Play Now</button></div>
 </div>
 
 <main>
@@ -294,7 +295,7 @@ footer{border-color:var(--line)}
 
 <footer><div class="wrap">
   <div>© 2026 Vasudev. All rights reserved.<br>Created by <b>Vasudev</b> · Built by an IIM Udaipur student<br>Made with <a href="https://godotengine.org" rel="noopener">Godot</a>. Unofficial fan project, not affiliated with IIM Udaipur.</div>
-  <div>Credits: all 3D art, textures, music and sound are generated in code for this game.</div>
+  <div>Credits: 3D art, textures and sound effects are generated in code for this game. Music: "Chai Run Groove" by PetalLog.</div>
 </div></footer>
 
 <div id="lightbox" role="dialog" aria-label="Screenshot viewer"><button class="x" aria-label="Close">×</button><button class="nv p" aria-label="Previous">‹</button><img alt=""><button class="nv n" aria-label="Next">›</button></div>
@@ -456,6 +457,18 @@ addEventListener("keydown",e=>{if(!lb.classList.contains("open"))return;if(e.key
 $("#fb").onsubmit=async e=>{e.preventDefault();const f=new FormData(e.target);
   if(CONFIG.FORM){try{await fetch(CONFIG.FORM,{method:"POST",body:f,headers:{Accept:"application/json"}});$("#thanks").style.display="block";e.target.reset()}catch{alert("Couldn't send. Try again later.")}}
   else{location.href=`mailto:${CONFIG.EMAIL}?subject=${encodeURIComponent("IIM Udaipur Run feedback")}&body=${encodeURIComponent(f.get("message")+"\n\nFrom: "+(f.get("email")||""))}`}};
+
+/* ---- landing-page music: starts on the first tap/click (browsers need one), button toggles, pauses while the game is open ---- */
+const music=new Audio("media/music.mp3");music.loop=true;music.preload="none";music.volume=0;
+const mbtn=$("#musicBtn");let wantMusic=store.get("iimrun_music",true),fade=null;
+function setVol(v,done){clearInterval(fade);fade=setInterval(()=>{const d=v-music.volume;if(Math.abs(d)<.02){music.volume=v;clearInterval(fade);done&&done()}else music.volume=Math.max(0,Math.min(1,music.volume+Math.sign(d)*.02))},40)}
+function musicState(){const on=wantMusic&&!music.paused&&!play.classList.contains("open");mbtn.textContent=on?"🔊":"🔇";mbtn.classList.toggle("on",on)}
+function musicOn(){if(!wantMusic||play.classList.contains("open"))return;music.play().then(()=>{setVol(.35);musicState()}).catch(()=>{})}
+function musicOff(){setVol(0,()=>{music.pause();musicState()})}
+mbtn.onclick=e=>{e.stopPropagation();wantMusic=!(wantMusic&&!music.paused);store.set("iimrun_music",wantMusic);wantMusic?musicOn():musicOff();track("music_toggle")};
+addEventListener("pointerdown",()=>{if(music.paused)musicOn()},{once:true});
+new MutationObserver(()=>{play.classList.contains("open")?musicOff():musicOn()}).observe(play,{attributes:true,attributeFilter:["class"]});
+document.addEventListener("visibilitychange",()=>{document.hidden?music.pause():(wantMusic&&!play.classList.contains("open")&&musicOn())});
 
 /* ---- start ---- */
 renderShare($("#shareMain"),0);loadBoard();loadPlays();
