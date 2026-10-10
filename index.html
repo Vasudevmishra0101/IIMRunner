@@ -200,7 +200,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:14px 40px;justify-content:space-bet
         <button class="btn big" id="playBtn2" data-track="play_click_hero2"><svg viewBox="0 0 14 14"><path d="M2 1l11 6-11 6z"/></svg>Play now, it's free</button>
         <a class="btn ghost" href="#how">How it works</a>
       </div>
-      <p class="note">Plays in your browser, nothing to install. Chrome and a desktop give the best graphics. Phones work too (about 45 MB on the first load, so use Wi-Fi).</p>
+      <p class="note">Plays in your browser, nothing to install. Chrome and a desktop give the best graphics. Phones work too (about 14 MB on the first load, so Wi-Fi is best).</p>
       <div class="proof mono"><span>Built by an IIM Udaipur student</span><span id="plays" hidden><b id="playsN">0</b> plays</span></div>
     </div>
     <div class="scroll mono">Scroll to run<i></i></div></div>
@@ -407,24 +407,44 @@ const play=$("#play"),wake=$("#wake"),frame=$("#game"),bar=$("#bar"),status=$("#
 let loaded=false,clipDone=false,loading=false;
 wake.src="media/wake.mp4";wake.load();
 
-async function preloadGame(){          // downloads with a real progress bar so the iframe then starts from cache
+/* The game's two big files are fetched in parallel into the browser cache (the iframe then starts from the cache).
+   It starts quietly as soon as a visitor shows interest (first tap, scroll or hover on Play), so by the time they
+   press Play most of it is already here. Skipped on data saver and slow connections. */
+let prog={got:0,total:0,done:false},preloadP=null;
+function paintProgress(){
+  if(!play.classList.contains("open")||prog.done)return;
+  const pct=prog.total?Math.min(99,prog.got/prog.total*100):0;
+  bar.style.display="block";bar.firstElementChild.style.width=pct+"%";status.textContent=prog.total?`Loading game… ${Math.round(pct)}%`:"Loading game…";
+}
+function startPreload(){
+  if(preloadP)return preloadP;
+  preloadP=(async()=>{
+    try{
+      const sizes=await fetch("game/index.html").then(r=>r.text()).then(t=>JSON.parse((t.match(/"fileSizes":(\{[^}]*\})/)||[])[1]||"{}"));
+      prog.total=Object.values(sizes).reduce((x,y)=>x+y,0);
+      await Promise.all(["game/index.pck","game/index.wasm"].map(async f=>{
+        const r=await fetch(f),rd=r.body.getReader();
+        for(;;){const {done,value}=await rd.read();if(done)break;prog.got+=value.length;paintProgress()}
+      }));
+    }catch(e){}
+    prog.done=true;
+  })();
+  return preloadP;
+}
+const slowNet=()=>{const c=navigator.connection;return !!c&&(c.saveData||/^(slow-2g|2g|3g)$/.test(c.effectiveType||""))};
+function maybePrefetch(){if(!slowNet())startPreload()}
+addEventListener("pointerdown",maybePrefetch,{once:true,passive:true});
+addEventListener("keydown",maybePrefetch,{once:true});
+addEventListener("scroll",()=>{if(scrollY>innerHeight*.5)maybePrefetch()},{once:true,passive:true});
+document.querySelectorAll("#playBtn,#playBtn2,#playBtn3").forEach(b=>b.addEventListener("pointerenter",maybePrefetch,{once:true}));
+async function preloadGame(){
   if(loading)return;loading=true;
-  const files=["game/index.pck","game/index.wasm"];let total=0,got=0;
-  bar.style.display="block";
-  try{
-    const sizes=await Promise.all(files.map(f=>fetch(f,{method:"HEAD"}).then(r=>+r.headers.get("content-length")||0).catch(()=>0)));
-    total=sizes.reduce((a,b)=>a+b,0)||45e6;
-    for(const f of files){
-      const r=await fetch(f);const rd=r.body.getReader();
-      for(;;){const {done,value}=await rd.read();if(done)break;got+=value.length;
-        const pct=Math.min(99,got/total*100);bar.firstElementChild.style.width=pct+"%";status.textContent=`Loading game… ${Math.round(pct)}%`}
-    }
-  }catch(e){}
+  paintProgress();
+  await startPreload();
   bar.firstElementChild.style.width="100%";status.textContent="Starting…";
   frame.src="game/index.html";
   frame.onload=()=>{loaded=true;status.textContent="";bar.style.display="none";maybeReveal()};
-}
-function maybeReveal(){if(loaded&&clipDone){wake.style.display="none";frame.focus();status.textContent="";}else if(clipDone){status.textContent=`Loading game… `;wake.style.display="none"}}
+}function maybeReveal(){if(loaded&&clipDone){wake.style.display="none";frame.focus();status.textContent="";}else if(clipDone){status.textContent=`Loading game… `;wake.style.display="none"}}
 
 function openGame(){
   play.classList.add("open");document.body.style.overflow="hidden";
