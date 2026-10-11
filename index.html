@@ -155,6 +155,9 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:14px 40px;justify-content:space-bet
 #play{position:fixed;inset:0;z-index:100;background:#000;display:none}
 #play.open{display:block}
 #play iframe,#play video{position:absolute;inset:0;width:100%;height:100%;border:0;background:#000}
+#play iframe{background:transparent}
+#play.waiting{background:#242424 url(media/splash.png) center/contain no-repeat}
+#play .ctrl #skip{background:var(--saffron);color:#10161c;border-color:transparent}
 #play video{object-fit:contain;z-index:2}
 #play iframe{z-index:1}
 #play .bar{position:absolute;z-index:4;left:0;right:0;bottom:0;height:5px;background:#222;display:none}
@@ -316,7 +319,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:14px 40px;justify-content:space-bet
 
 <div id="play" role="dialog" aria-label="Game" aria-modal="true">
   <iframe id="game" title="IIM Udaipur Run" allow="autoplay; fullscreen; gamepad" allowfullscreen></iframe>
-  <video id="wake" playsinline preload="auto" poster="media/hero-poster.jpg"></video>
+  <video id="wake" playsinline preload="none" poster="media/hero-poster.jpg"></video>
   <div class="status" id="status"></div>
   <div class="bar" id="bar"><i></i></div>
   <div class="ctrl"><button id="skip">Skip ›</button><button id="closeGame" aria-label="Close game">Close</button></div>
@@ -402,19 +405,29 @@ async function loadPlays(){
   $("#playsN").textContent=n.toLocaleString();$("#plays").hidden=false;
 }
 
-/* ---- game launch: wake-up clip first, game loads behind it ---- */
-const play=$("#play"),wake=$("#wake"),frame=$("#game"),bar=$("#bar"),status=$("#status");
-let loaded=false,clipDone=false,loading=false;
-wake.src="media/wake.mp4";wake.load();
+/* ---- game launch ----------------------------------------------------------------------------------------
+   1. Play opens the overlay and plays the wake-up clip. The landing page's 3D scene is shut down first (it would
+      otherwise keep GPU memory and a second WebGL context alive next to the game).
+   2. While the clip plays, only the NETWORK works: the game's two big files are fetched into the cache. The game is
+      NOT started yet: it lives in the same tab, and booting it (compiling a 38 MB engine) freezes the page, which made
+      the clip stutter and Skip unresponsive.
+   3. When the clip ends or is skipped, the game boots (the iframe shows the branded splash while it does).
+   Closing the game reloads the page: that frees everything and brings the 3D scene back. */
+const play=$("#play"),wake=$("#wake"),frame=$("#game"),bar=$("#bar"),status=$("#status"),skipBtn=$("#skip");
+let booting=false,clipOn=false,paintT=0;
+function loadWake(){if(!wake.getAttribute("src")){wake.src="media/wake.mp4";wake.load()}}
+addEventListener("load",()=>setTimeout(loadWake,2500));   // after the 3D page has settled
 
-/* The game's two big files are fetched in parallel into the browser cache (the iframe then starts from the cache).
-   It starts quietly as soon as a visitor shows interest (first tap, scroll or hover on Play), so by the time they
-   press Play most of it is already here. Skipped on data saver and slow connections. */
+/* The game's files are fetched in parallel into the browser cache. This starts quietly as soon as a visitor shows
+   interest (first tap, scroll or hover on Play), so most of it is here by the time they press Play. Skipped on data
+   saver and slow connections. */
 let prog={got:0,total:0,done:false},preloadP=null;
 function paintProgress(){
-  if(!play.classList.contains("open")||prog.done)return;
-  const pct=prog.total?Math.min(99,prog.got/prog.total*100):0;
-  bar.style.display="block";bar.firstElementChild.style.width=pct+"%";status.textContent=prog.total?`Loading game… ${Math.round(pct)}%`:"Loading game…";
+  if(paintT||!play.classList.contains("open")||prog.done)return;
+  paintT=setTimeout(()=>{paintT=0;if(prog.done)return;           // at most 5 repaints a second
+    const pct=prog.total?Math.min(99,prog.got/prog.total*100):0;
+    bar.style.display="block";bar.firstElementChild.style.width=pct+"%";
+    if(booting)status.textContent=prog.total?`Loading game… ${Math.round(pct)}%`:"Loading game…"},200);
 }
 function startPreload(){
   if(preloadP)return preloadP;
@@ -437,36 +450,54 @@ addEventListener("pointerdown",maybePrefetch,{once:true,passive:true});
 addEventListener("keydown",maybePrefetch,{once:true});
 addEventListener("scroll",()=>{if(scrollY>innerHeight*.5)maybePrefetch()},{once:true,passive:true});
 document.querySelectorAll("#playBtn,#playBtn2,#playBtn3").forEach(b=>b.addEventListener("pointerenter",maybePrefetch,{once:true}));
-async function preloadGame(){
-  if(loading)return;loading=true;
-  paintProgress();
-  await startPreload();
-  bar.firstElementChild.style.width="100%";status.textContent="Starting…";
-  frame.src="game/index.html";
-  frame.onload=()=>{loaded=true;status.textContent="";bar.style.display="none";maybeReveal()};
-}function maybeReveal(){if(loaded&&clipDone){wake.style.display="none";frame.focus();status.textContent="";}else if(clipDone){status.textContent=`Loading game… `;wake.style.display="none"}}
 
 function openGame(){
+  if(play.classList.contains("open"))return;
+  if(window.__stopGL)window.__stopGL();
   play.classList.add("open");document.body.style.overflow="hidden";
   $("#over").classList.remove("open");
   track("play_start");store.set("iimrun_plays",store.get("iimrun_plays",0)+1);
   if(CONFIG.API)fetch(CONFIG.API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({play:true}),keepalive:true}).catch(()=>{});
-  preloadGame();
-  if(!clipDone&&!sessionStorage.getItem("iimrun_seen_wake")){
-    wake.style.display="block";wake.currentTime=0;
-    wake.play().catch(()=>{wake.muted=true;wake.play().catch(()=>endClip())});
-  }else endClip();
+  startPreload();
+  let seen=false;try{seen=!!sessionStorage.getItem("iimrun_seen_wake")}catch{}
+  if(seen){bootGame();return}
+  loadWake();clipOn=true;wake.style.display="block";skipBtn.style.display="";
+  wake.currentTime=0;
+  const p=wake.play();
+  if(p&&p.catch)p.catch(()=>{wake.muted=true;const q=wake.play();if(q&&q.catch)q.catch(bootGame)});   // blocked or unplayable: go straight to the game
+  watchdog();
 }
-function endClip(){clipDone=true;try{sessionStorage.setItem("iimrun_seen_wake","1")}catch{};wake.pause();maybeReveal();$("#skip").style.display="none"}
-wake.addEventListener("ended",endClip);
-$("#skip").onclick=()=>{track("intro_skip");endClip()};
-function closeGame(){play.classList.remove("open");document.body.style.overflow="";wake.pause();
-  frame.src="about:blank";loaded=false;loading=false;clipDone=false;wake.style.display="block";$("#skip").style.display="";wake.currentTime=0;bar.style.display="none";status.textContent=""}
-$("#closeGame").onclick=closeGame;
+/* if the clip never gets going (bad network, unsupported), do not leave the visitor staring at it */
+let lastT=-1,stuck=0,dog=0;
+function watchdog(){clearInterval(dog);lastT=-1;stuck=0;dog=setInterval(()=>{
+  if(!clipOn){clearInterval(dog);return}
+  if(wake.currentTime===lastT)stuck++;else{stuck=0;lastT=wake.currentTime}
+  if(stuck>=8)bootGame();                                          // 8 s without moving
+},1000)}
+wake.addEventListener("ended",()=>bootGame());
+wake.addEventListener("error",()=>{if(clipOn)bootGame()});
+
+async function bootGame(){
+  if(booting)return;booting=true;clipOn=false;clearInterval(dog);
+  try{sessionStorage.setItem("iimrun_seen_wake","1")}catch{}
+  wake.pause();wake.style.display="none";skipBtn.style.display="none";
+  play.classList.add("waiting");                                   // shows the splash until the game's own page paints
+  status.textContent="Loading game…";bar.style.display="block";
+  await startPreload();
+  bar.firstElementChild.style.width="100%";status.textContent="Starting…";
+  frame.onload=()=>{play.classList.remove("waiting");status.textContent="";bar.style.display="none";frame.focus()};
+  frame.src="game/index.html";
+}
+function skip(){if(!clipOn)return;track("intro_skip");bootGame()}
+skipBtn.addEventListener("click",skip);
+skipBtn.addEventListener("pointerup",e=>{e.preventDefault();skip()});
+wake.addEventListener("click",skip);                               // tapping the clip skips too
+addEventListener("keydown",e=>{if(clipOn&&(e.key==="Enter"||e.key===" "||e.key==="Escape")){e.preventDefault();skip()}});
+$("#closeGame").onclick=()=>location.reload();                     // frees the game and brings the 3D scene back
 addEventListener("keydown",e=>{if(e.key==="Escape"&&lb.classList.contains("open"))lb.classList.remove("open")});
 for(const id of ["#playBtn","#playBtn2","#playBtn3"])$(id).onclick=openGame;
+{const _t=new URLSearchParams(location.search).get("t");if(_t)addEventListener("load",()=>{openGame();if(_t==="skip")setTimeout(skip,1500)})}  /* test hook: ?t=open or ?t=skip */
 $("#oAgain").onclick=()=>{$("#over").classList.remove("open");const f=frame.src;frame.src="about:blank";setTimeout(()=>{frame.src=f;frame.onload=()=>frame.focus()},60);track("play_again")};
-
 /* messages from the game (scripts/main.gd _tell_page) */
 let lastScore=0;
 addEventListener("message",e=>{
@@ -808,7 +839,15 @@ function readScroll(){
   return r.bottom>-H*.2;
 }
 const tmp=new THREE.Vector3(),look=new THREE.Vector3(),DUMMY=new THREE.Object3D();
+let stopped=false;
+window.__stopGL=()=>{                                              // frees the 3D scene while the game runs (called when Play is pressed)
+  if(stopped)return;stopped=true;
+  try{scene.traverse(o=>{if(o.geometry)o.geometry.dispose();const m=o.material;if(m)(Array.isArray(m)?m:[m]).forEach(mm=>{for(const k in mm){const v=mm[k];if(v&&v.isTexture)v.dispose()}mm.dispose()})});
+    renderer.dispose();renderer.forceContextLoss()}catch(e){}
+  cvs.style.display="none";const v=document.querySelector(".vig");if(v)v.style.display="none";
+};
 function frame(now){
+  if(stopped)return;
   requestAnimationFrame(frame);
   const dt=Math.min(.05,(now-last)/1000);last=now;
   const visible=readScroll();
