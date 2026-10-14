@@ -619,6 +619,7 @@ addEventListener("message",e=>{
   if(d.iimrun==="start")track("run_start");
   if(d.iimrun==="over"){
     lastScore=d.score;lastMap=MAPS[d.map]?d.map:gameMap;track("run_over",{score:d.score,map:lastMap});
+    if(d.name){store.set("iimrun_name",d.name);if(d.score>0)submitScore(d.name,d.score,lastMap)}  /* the game asked for the name before the run: straight onto the board */
     $("#oScore").textContent=d.score;$("#oSub").textContent=`${d.metres} m · ${d.coins} coins`;
     $("#oName").value=store.get("iimrun_name","");renderShare($("#shareOver"),d.score,lastMap);
     setTimeout(()=>$("#over").classList.add("open"),900);
