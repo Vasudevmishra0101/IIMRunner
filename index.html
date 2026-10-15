@@ -46,7 +46,7 @@ h1,h2,h3{font-family:"Rozha One",Georgia,serif;font-weight:400;margin:0;letter-s
 .dots button.on{width:22px;border-radius:6px;background:#17120d}
 .banner{position:relative;display:grid;grid-template-columns:1.05fr 1fr;min-height:310px;border-radius:20px;overflow:hidden;background:linear-gradient(100deg,#c8c2b8,#e7e2d8);color:#17120d;box-shadow:0 1px 0 rgba(255,255,255,.65) inset,0 18px 40px rgba(60,40,20,.14)}
 .banner::after{content:"";position:absolute;left:0;right:0;bottom:0;height:12px;background:linear-gradient(90deg,#ffe36b,#f5a81c 52%,#ffd84d);z-index:3}
-.bn-copy{position:relative;z-index:2;padding:34px 20px 42px 44px;display:flex;flex-direction:column;justify-content:center;gap:8px}
+.bn-copy{position:relative;z-index:2;padding:54px 20px 42px 44px;display:flex;flex-direction:column;justify-content:center;gap:8px}
 .bn-k{font:500 12px "Spline Sans Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:#7a4f16}
 .banner h2{font-size:clamp(36px,4.8vw,64px);line-height:1;color:#17120d}
 .banner h2 em{display:block;font:700 clamp(20px,2.3vw,30px)/1.15 "Familjen Grotesk",sans-serif;font-style:normal;margin-top:10px;letter-spacing:-.01em}
@@ -62,6 +62,8 @@ h1,h2,h3{font-family:"Rozha One",Georgia,serif;font-weight:400;margin:0;letter-s
 .bn-art{position:relative;min-height:250px;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 24%);mask-image:linear-gradient(90deg,transparent,#000 24%)}
 .bn-art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .35s}
 .bn-art img.fade{opacity:0}
+.bn-x{position:absolute;z-index:6;top:12px;left:14px;width:34px;height:34px;border-radius:50%;border:1px solid rgba(23,18,13,.3);background:rgba(236,232,224,.85);color:#17120d;font-size:22px;line-height:1;cursor:pointer;display:grid;place-items:center;padding:0}
+.bn-x:hover{background:#17120d;color:#ece8e0}
 .bn-chip{position:absolute;z-index:4;top:18px;right:18px;background:rgba(23,18,13,.55);color:#fff;padding:6px 12px;border-radius:8px;font:500 12px "Spline Sans Mono",monospace;letter-spacing:.12em;text-transform:uppercase}
 body.infeat .bar{background:#ece8e0;box-shadow:0 1px 0 rgba(23,18,13,.12)}
 body.infeat .mark,body.infeat .clock{color:#17120d;text-shadow:none}
@@ -205,13 +207,16 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:14px 40px;justify-content:space-bet
 #play .bar{position:absolute;z-index:4;left:0;right:0;bottom:0;height:5px;background:#222;display:none}
 #play .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--mag));transition:width .2s}
 #play .status{position:absolute;z-index:4;left:16px;bottom:16px;font-size:13px;color:#fff;text-shadow:0 1px 4px #000;pointer-events:none}
-#play .ctrl{position:absolute;z-index:6;top:calc(12px + env(safe-area-inset-top));right:12px;display:flex;gap:8px}
+#play .ctrl{position:absolute;z-index:12;top:calc(12px + env(safe-area-inset-top));right:12px;display:flex;gap:8px}
 #play .ctrl button{background:rgba(0,0,0,.6);color:#fff;border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:9px 16px;font:inherit;font-weight:700;cursor:pointer}
 #over{position:absolute;z-index:8;inset:0;background:rgba(5,8,18,.82);display:none;align-items:center;justify-content:center;padding:16px}
 #over.open{display:flex}
 #over .box{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:26px;max-width:440px;width:100%;text-align:center}
 #over h3{margin:0 0 4px;font-size:26px}
 #over .big{font-size:56px;font-weight:900;color:var(--gold);line-height:1}
+#over .box{position:relative}
+#over .xbtn{position:absolute;top:10px;right:12px;width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--cream);font-size:24px;line-height:1;cursor:pointer}
+#over .xbtn:hover{border-color:var(--saffron);color:var(--saffron)}
 #over .row{display:flex;gap:8px;margin:14px 0}
 #over .share{justify-content:center}
 /* maps */
@@ -274,6 +279,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:14px 40px;justify-content:space-bet
   <div class="wrap">
     <div class="dots" id="featDots" role="tablist" aria-label="Featured maps"><button class="on" aria-label="Fateh Sagar Lake Road"></button><button aria-label="IIM Udaipur Campus"></button></div>
     <div class="banner" id="banner">
+      <button class="bn-x" id="bnX" aria-label="Close this banner" title="Close">&times;</button>
       <div class="bn-copy">
         <div class="bn-k" id="bnK"></div>
         <h2 id="bnT">Udaipur Runs<em id="bnE"></em></h2>
@@ -485,7 +491,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:14px 40px;justify-content:space-bet
   <div class="bar" id="bar"><i></i></div>
   <div class="ctrl"><button id="skip">Skip ›</button><button id="closeGame" aria-label="Close game">Close</button></div>
   <div id="over"><div class="box">
-    <h3>Run over</h3><div class="big" id="oScore">0</div><div style="color:var(--mute)" id="oSub"></div>
+    <button class="xbtn" id="oClose" aria-label="Close game">&times;</button><h3>Run over</h3><div class="big" id="oScore">0</div><div style="color:var(--mute)" id="oSub"></div>
     <div class="row"><input id="oName" maxlength="16" placeholder="Your name (for the board)" autocomplete="nickname"><button class="btn" id="oSave">Save</button></div>
     <div class="share" id="shareOver"></div>
     <button class="btn ghost" id="oAgain">Play again</button>
@@ -628,7 +634,11 @@ document.querySelectorAll("#playBtn,#playBtn2,#playBtn3,[data-map]").forEach(b=>
 
 const fName=$("#fName"),feat=$("#feature"),ban=$("#banner");
 fName.value=store.get("iimrun_name","");
-function needName(){const n=fName.value.trim();if(n){store.set("iimrun_name",n.slice(0,16));return n.slice(0,16)}
+let bannerOff=false;try{bannerOff=sessionStorage.getItem("iimrun_banner_off")==="1"}catch{}
+function closeBanner(){bannerOff=true;try{sessionStorage.setItem("iimrun_banner_off","1")}catch{}feat.style.display="none";document.body.classList.remove("infeat")}
+if(bannerOff)closeBanner();
+$("#bnX").onclick=()=>{clearInterval(slideTimer);closeBanner();scrollTo(0,0)};
+function needName(){if(bannerOff)return store.get("iimrun_name","")||"Runner";const n=fName.value.trim();if(n){store.set("iimrun_name",n.slice(0,16));return n.slice(0,16)}
   ban.classList.remove("need");void ban.offsetWidth;ban.classList.add("need");feat.scrollIntoView({behavior:"smooth",block:"start"});setTimeout(()=>fName.focus({preventScroll:true}),450);return""}
 const SLIDES=[
  {k:"Utkrisht · Sports Fest of IIM Udaipur",e:"Fateh Sagar Lake Road",s:"Run the real lake road at sunset. Hosted by Utkrisht, presented by IIM Udaipur.",img:"media/udaipur-runs.jpg",pos:"80% 85%",map:"fatehsagar",chip:"New map"},
@@ -686,7 +696,8 @@ skipBtn.addEventListener("click",skip);
 skipBtn.addEventListener("pointerup",e=>{e.preventDefault();skip()});
 wake.addEventListener("click",skip);                               // tapping the clip skips too
 addEventListener("keydown",e=>{if(clipOn&&(e.key==="Enter"||e.key===" "||e.key==="Escape")){e.preventDefault();skip()}});
-$("#closeGame").onclick=()=>location.reload();                     // frees the game and brings the 3D scene back
+$("#closeGame").onclick=()=>location.reload();
+$("#oClose").onclick=()=>location.reload();                     // frees the game and brings the 3D scene back
 addEventListener("keydown",e=>{if(e.key==="Escape"&&lb.classList.contains("open"))lb.classList.remove("open")});
 for(const id of ["#playBtn","#playBtn2","#playBtn3"])$(id).onclick=()=>openGame();
 document.querySelectorAll("[data-map]").forEach(b=>b.addEventListener("click",()=>openGame(b.dataset.map)));
@@ -738,7 +749,7 @@ renderShare($("#shareMain"),0);selectBoard(boardMap);loadPlays();
 /* reveal chapters as they scroll in; hide the live stats once past the journey */
 const io=new IntersectionObserver(es=>es.forEach(e=>e.target.classList.toggle("in",e.isIntersecting)),{threshold:.35});
 document.querySelectorAll(".chap").forEach(c=>io.observe(c));
-addEventListener("scroll",()=>document.body.classList.toggle("infeat",feat.getBoundingClientRect().bottom>innerHeight*.35),{passive:true});document.body.classList.add("infeat");
+addEventListener("scroll",()=>document.body.classList.toggle("infeat",!bannerOff&&feat.getBoundingClientRect().bottom>innerHeight*.35),{passive:true});if(!(function(){try{return sessionStorage.getItem("iimrun_banner_off")==="1"}catch{return false}})())document.body.classList.add("infeat");
 const jr=$("#journey");addEventListener("scroll",()=>document.body.classList.toggle("past",jr.getBoundingClientRect().bottom<innerHeight*.6),{passive:true});
 </script>
 <script>
