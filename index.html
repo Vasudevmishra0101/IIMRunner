@@ -34,36 +34,45 @@ h1,h2,h3{font-family:"Rozha One",Georgia,serif;font-weight:400;margin:0;letter-s
 :focus-visible{outline:3px solid var(--cream);outline-offset:3px}
 
 
-/* feature: Udaipur Runs by Utkrisht, the first thing on the page */
-.feature{position:relative;z-index:7;overflow:hidden;background:radial-gradient(70% 90% at 85% 100%,#7d1519 0,transparent 70%),var(--ink);padding:104px 0 56px;border-bottom:1px solid var(--line)}
-.feature::before{content:"";position:absolute;inset:0;background:url(media/udaipur-runs.jpg) right bottom/auto 135% no-repeat;-webkit-mask-image:linear-gradient(90deg,transparent 34%,#000 70%),linear-gradient(0deg,#000 58%,transparent 92%);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent 34%,#000 70%),linear-gradient(0deg,#000 58%,transparent 92%);mask-composite:intersect}
-.feature::after{content:"";position:absolute;left:-6%;top:0;bottom:0;width:46%;background:linear-gradient(100deg,var(--ink) 55%,transparent);pointer-events:none}
-.feature .slash{position:absolute;z-index:1;top:-10%;bottom:-10%;width:14px;background:var(--sindoor);transform:rotate(18deg);left:56%;box-shadow:26px 0 0 var(--saffron),52px 0 0 rgba(195,39,43,.35)}
-.feature .wrap{position:relative;z-index:2}
-.feature .by{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;color:var(--saffron);margin-bottom:16px}
-.feature .by b{font-weight:500;color:var(--cream)}
-.feature h2{font-size:clamp(54px,9vw,128px);line-height:.88;max-width:9ch;margin-bottom:6px;text-shadow:0 4px 40px rgba(0,0,0,.5)}
-.feature h2 em{font-style:normal;color:var(--saffron);display:block;font-size:.5em;letter-spacing:.02em}
-.feature .sub{max-width:34ch;font-size:clamp(18px,1.8vw,22px);margin:18px 0 22px;color:var(--cream)}
-.feature form{display:grid;gap:10px;max-width:420px}
-.feature label{font:500 12px "Spline Sans Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--saffron)}
-.feature input{font:600 22px "Familjen Grotesk",sans-serif;color:var(--cream);background:rgba(247,236,214,.08);border:2px solid var(--line);border-radius:10px;padding:14px 16px;width:100%;outline:none;transition:border-color .2s,background .2s}
-.feature input::placeholder{color:rgba(247,236,214,.45)}
-.feature input:focus{border-color:var(--saffron);background:rgba(247,236,214,.14)}
-.feature.need input{border-color:var(--sindoor);animation:shake .4s}
+/* top banner: Udaipur Runs by Utkrisht (a wide card, warm greige with black type and a gold edge) */
+.lightzone,.after{--cream:#17120d;--mute:#5f584d;--line:rgba(23,18,13,.2);--ink:#ece8e0;--ink2:#e2ddd3;--card:rgba(23,18,13,.05);--saffron:#9a5f00;--sand:#7a4f16;--gold:#c47f00;color:var(--cream)}
+.lightzone input,.lightzone textarea,.after input,.after textarea{background:#fff}
+.after .facts div{background:rgba(23,18,13,.04)}
+.after .endcta{color:#f7ecd6;--cream:#f7ecd6;--mute:#c9bda6;--line:rgba(247,236,214,.18);--ink:#1c0f0b;--saffron:#f3a72f}
+.after .endcta input{background:rgba(247,236,214,.06)}
+.topband{position:relative;z-index:7;padding:92px 0 38px;background:var(--ink)}
+.dots{display:flex;justify-content:center;gap:7px;margin:0 0 14px}
+.dots button{width:7px;height:7px;border-radius:50%;border:0;padding:0;background:rgba(23,18,13,.25);cursor:pointer;transition:width .25s,background .25s}
+.dots button.on{width:22px;border-radius:6px;background:#17120d}
+.banner{position:relative;display:grid;grid-template-columns:1.05fr 1fr;min-height:310px;border-radius:20px;overflow:hidden;background:linear-gradient(100deg,#c8c2b8,#e7e2d8);color:#17120d;box-shadow:0 1px 0 rgba(255,255,255,.65) inset,0 18px 40px rgba(60,40,20,.14)}
+.banner::after{content:"";position:absolute;left:0;right:0;bottom:0;height:12px;background:linear-gradient(90deg,#ffe36b,#f5a81c 52%,#ffd84d);z-index:3}
+.bn-copy{position:relative;z-index:2;padding:34px 20px 42px 44px;display:flex;flex-direction:column;justify-content:center;gap:8px}
+.bn-k{font:500 12px "Spline Sans Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:#7a4f16}
+.banner h2{font-size:clamp(36px,4.8vw,64px);line-height:1;color:#17120d}
+.banner h2 em{display:block;font:700 clamp(20px,2.3vw,30px)/1.15 "Familjen Grotesk",sans-serif;font-style:normal;margin-top:10px;letter-spacing:-.01em}
+.bn-sub{margin:4px 0 0;max-width:36ch;color:#3b342b;font-size:16px}
+.bn-lab{font:500 11px "Spline Sans Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:#5f584d;margin-top:10px}
+.bn-form{display:flex;gap:10px;flex-wrap:wrap;max-width:540px}
+.bn-form input{flex:1 1 170px;min-width:0;font:600 18px "Familjen Grotesk",sans-serif;color:#17120d;background:#fff;border:2px solid rgba(23,18,13,.22);border-radius:10px;padding:13px 14px;outline:none;transition:border-color .2s}
+.bn-form input::placeholder{color:rgba(23,18,13,.4)}
+.bn-form input:focus{border-color:#c47f00}
+.banner.need input{border-color:var(--sindoor);animation:shake .4s}
 @keyframes shake{25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
-.feature .btn{justify-content:center;background:var(--sindoor);color:var(--cream);box-shadow:0 6px 0 #7d1519;font-size:20px;padding:18px 30px}
-.feature .btn:hover{box-shadow:0 8px 0 #7d1519,0 18px 34px rgba(0,0,0,.45)}
-.feature .btn:active{box-shadow:0 2px 0 #7d1519}
-.feature .fine{font-size:14px;color:var(--mute);margin-top:6px}
-.feature .facts{display:flex;flex-wrap:wrap;gap:8px 26px;margin-top:26px;color:var(--cream)}
-.feature .facts span::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--peepal);margin-right:9px}
-@media(max-width:860px){
-  .feature{padding:84px 0 40px}
-  .feature{padding-bottom:250px}
-  .feature::before{inset:auto 0 0 0;height:240px;background-size:cover;background-position:70% 100%;-webkit-mask-image:linear-gradient(0deg,#000 45%,transparent);mask-image:linear-gradient(0deg,#000 45%,transparent);-webkit-mask-composite:source-over;mask-composite:add}
-  .feature::after,.feature .slash{display:none}
-  .feature h2{max-width:none}
+.bn-form .btn{white-space:nowrap}
+.bn-art{position:relative;min-height:250px;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 24%);mask-image:linear-gradient(90deg,transparent,#000 24%)}
+.bn-art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .35s}
+.bn-art img.fade{opacity:0}
+.bn-chip{position:absolute;z-index:4;top:18px;right:18px;background:rgba(23,18,13,.55);color:#fff;padding:6px 12px;border-radius:8px;font:500 12px "Spline Sans Mono",monospace;letter-spacing:.12em;text-transform:uppercase}
+body.infeat .bar{background:#ece8e0;box-shadow:0 1px 0 rgba(23,18,13,.12)}
+body.infeat .mark,body.infeat .clock{color:#17120d;text-shadow:none}
+body.infeat .mark small{color:#9a5f00}
+body.infeat .mbtn{background:transparent;color:#17120d;border-color:rgba(23,18,13,.3)}
+@media(max-width:820px){
+  .topband{padding-top:84px}
+  .banner{grid-template-columns:1fr}
+  .bn-copy{padding:28px 22px 18px}
+  .bn-chip{top:auto;bottom:26px;right:16px}
+  .bn-art{min-height:190px;-webkit-mask-image:linear-gradient(180deg,transparent,#000 24%);mask-image:linear-gradient(180deg,transparent,#000 24%)}
 }
 
 /* fixed 3D stage */
@@ -241,6 +250,8 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:14px 40px;justify-content:space-bet
 .tabs button{border:1px solid var(--line);background:transparent;color:var(--mute);padding:8px 16px;border-radius:999px;font:600 14px "Familjen Grotesk",sans-serif;cursor:pointer}
 .tabs button.on{background:var(--saffron);border-color:var(--saffron);color:var(--ink)}
 #over .box{background:var(--ink2)}#over .big{font-family:"Rozha One",serif;font-weight:400}#over h3{font-family:"Rozha One",serif;font-weight:400}#play{--gold2:#d98c14}#lightbox{z-index:80}
+.btn{background:linear-gradient(#ffd84d,#f5a81c);color:#17120d}
+.btn.ghost{background:transparent;color:var(--cream)}
 </style>
 </head>
 <body>
@@ -259,19 +270,23 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:14px 40px;justify-content:space-bet
 <div class="coinsbox mono"><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="7"/></svg><span id="coinsN">0</span> coins</div>
 
 <main id="top">
-<section class="feature" id="feature" aria-label="Udaipur Runs by Utkrisht">
-  <i class="slash"></i>
+<section class="topband lightzone" id="feature" aria-label="Udaipur Runs by Utkrisht">
   <div class="wrap">
-    <div class="by mono"><span>Utkrisht &nbsp;·&nbsp; Sports Fest of IIM Udaipur</span><b>Hosted by Utkrisht &nbsp;/&nbsp; Presented by IIM Udaipur</b></div>
-    <h2>Udaipur Runs<em>Fateh Sagar Lake Road</em></h2>
-    <p class="sub">Run the real lake road at sunset, past the bund, the Pal and Moti Magri. The Utkrisht map is live.</p>
-    <form id="featForm" autocomplete="off">
-      <label for="fName">Enter your name to run</label>
-      <input id="fName" maxlength="16" placeholder="Your name" autocomplete="nickname" required>
-      <button class="btn big" type="submit" data-track="play_click_feature"><svg viewBox="0 0 14 14"><path d="M2 1l11 6-11 6z"/></svg>Click to play</button>
-      <div class="fine">Free. Plays in your browser. Your name goes on the leaderboard.</div>
-    </form>
-    <div class="facts mono"><span>4.6 km lap</span><span>Real OpenStreetMap road</span><span>One leaderboard per map</span></div>
+    <div class="dots" id="featDots" role="tablist" aria-label="Featured maps"><button class="on" aria-label="Fateh Sagar Lake Road"></button><button aria-label="IIM Udaipur Campus"></button></div>
+    <div class="banner" id="banner">
+      <div class="bn-copy">
+        <div class="bn-k" id="bnK"></div>
+        <h2 id="bnT">Udaipur Runs<em id="bnE"></em></h2>
+        <p class="bn-sub" id="bnS"></p>
+        <form class="bn-form" id="featForm" autocomplete="off">
+          <label class="bn-lab" for="fName" style="flex-basis:100%">Enter your name to run</label>
+          <input id="fName" maxlength="16" placeholder="Your name" autocomplete="nickname" required>
+          <button class="btn" type="submit" data-track="play_click_feature"><svg viewBox="0 0 14 14"><path d="M2 1l11 6-11 6z"/></svg>Click to play</button>
+        </form>
+      </div>
+      <div class="bn-art"><img id="bnImg" src="media/udaipur-runs.jpg" alt="" width="1600" height="900"></div>
+      <span class="bn-chip" id="bnChip">New map</span>
+    </div>
   </div>
 </section>
 
@@ -611,11 +626,22 @@ addEventListener("keydown",maybePrefetch,{once:true});
 addEventListener("scroll",()=>{if(scrollY>innerHeight*.5)maybePrefetch()},{once:true,passive:true});
 document.querySelectorAll("#playBtn,#playBtn2,#playBtn3,[data-map]").forEach(b=>b.addEventListener("pointerenter",maybePrefetch,{once:true}));
 
-const fName=$("#fName"),feat=$("#feature");
+const fName=$("#fName"),feat=$("#feature"),ban=$("#banner");
 fName.value=store.get("iimrun_name","");
 function needName(){const n=fName.value.trim();if(n){store.set("iimrun_name",n.slice(0,16));return n.slice(0,16)}
-  feat.classList.remove("need");void feat.offsetWidth;feat.classList.add("need");feat.scrollIntoView({behavior:"smooth",block:"start"});setTimeout(()=>fName.focus({preventScroll:true}),450);return""}
-$("#featForm").addEventListener("submit",e=>{e.preventDefault();openGame("fatehsagar")});
+  ban.classList.remove("need");void ban.offsetWidth;ban.classList.add("need");feat.scrollIntoView({behavior:"smooth",block:"start"});setTimeout(()=>fName.focus({preventScroll:true}),450);return""}
+const SLIDES=[
+ {k:"Utkrisht · Sports Fest of IIM Udaipur",e:"Fateh Sagar Lake Road",s:"Run the real lake road at sunset. Hosted by Utkrisht, presented by IIM Udaipur.",img:"media/udaipur-runs.jpg",pos:"80% 85%",map:"fatehsagar",chip:"New map"},
+ {k:"Map 01 · Balicha",e:"IIM Udaipur Campus",s:"The original run: the main gate, the ghats, the courtyard and the skywalk at golden hour.",img:"media/shot1.jpg",pos:"50% 50%",map:"campus",chip:"Campus"}];
+let slide=0,slideTimer=0;
+function showSlide(i){slide=i;const d=SLIDES[i],img=$("#bnImg");
+  $("#bnK").textContent=d.k;$("#bnE").textContent=d.e;$("#bnS").textContent=d.s;$("#bnChip").textContent=d.chip;
+  img.classList.add("fade");setTimeout(()=>{img.src=d.img;img.style.objectPosition=d.pos;img.onload=()=>img.classList.remove("fade");setTimeout(()=>img.classList.remove("fade"),300)},180);
+  document.querySelectorAll("#featDots button").forEach((b,j)=>b.classList.toggle("on",j===i))}
+document.querySelectorAll("#featDots button").forEach((b,j)=>b.onclick=()=>{clearInterval(slideTimer);showSlide(j)});
+showSlide(0);slideTimer=setInterval(()=>showSlide((slide+1)%SLIDES.length),7000);
+$("#banner").addEventListener("pointerenter",()=>clearInterval(slideTimer));
+$("#featForm").addEventListener("submit",e=>{e.preventDefault();openGame(SLIDES[slide].map)});
 function openGame(map){
   if(play.classList.contains("open"))return;
   if(!needName())return;
