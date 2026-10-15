@@ -21,8 +21,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@400;500;600;700&family=Rozha+One&family=Spline+Sans+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-:root{--ink:#10161c;--ink2:#18222b;--teal:#1b6670;--sand:#e3b583;--brick:#c0623a;--saffron:#f3a72f;--cream:#f7ecd6;--alarm:#ea4b3a;--mute:#c9bda6;
-  --bg:#10161c;--card:rgba(247,236,214,.06);--line:rgba(247,236,214,.18);--gold:#f3a72f;--mag:#c0623a}
+:root{--ink:#1c0f0b;--ink2:#2b1712;--teal:#7a9a3d;--sand:#e3b583;--brick:#a9322f;--saffron:#f3a72f;--cream:#f7ecd6;--alarm:#e0483c;--mute:#c9bda6;
+  --lotus:#e58aa0;--peepal:#7a9a3d;--sindoor:#c3272b;--bg:#1c0f0b;--card:rgba(247,236,214,.06);--line:rgba(247,236,214,.18);--gold:#f3a72f;--mag:#c3272b}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--ink);color:var(--cream);font:17px/1.6 "Familjen Grotesk",system-ui,sans-serif;-webkit-text-size-adjust:100%;overflow-x:hidden}
@@ -33,11 +33,44 @@ h1,h2,h3{font-family:"Rozha One",Georgia,serif;font-weight:400;margin:0;letter-s
 .wrap{width:min(1180px,100% - 40px);margin-inline:auto}
 :focus-visible{outline:3px solid var(--cream);outline-offset:3px}
 
+
+/* feature: Udaipur Runs by Utkrisht, the first thing on the page */
+.feature{position:relative;z-index:7;overflow:hidden;background:radial-gradient(70% 90% at 85% 100%,#7d1519 0,transparent 70%),var(--ink);padding:104px 0 56px;border-bottom:1px solid var(--line)}
+.feature::before{content:"";position:absolute;inset:0;background:url(media/udaipur-runs.jpg) right bottom/auto 135% no-repeat;-webkit-mask-image:linear-gradient(90deg,transparent 34%,#000 70%),linear-gradient(0deg,#000 58%,transparent 92%);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent 34%,#000 70%),linear-gradient(0deg,#000 58%,transparent 92%);mask-composite:intersect}
+.feature::after{content:"";position:absolute;left:-6%;top:0;bottom:0;width:46%;background:linear-gradient(100deg,var(--ink) 55%,transparent);pointer-events:none}
+.feature .slash{position:absolute;z-index:1;top:-10%;bottom:-10%;width:14px;background:var(--sindoor);transform:rotate(18deg);left:56%;box-shadow:26px 0 0 var(--saffron),52px 0 0 rgba(195,39,43,.35)}
+.feature .wrap{position:relative;z-index:2}
+.feature .by{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;color:var(--saffron);margin-bottom:16px}
+.feature .by b{font-weight:500;color:var(--cream)}
+.feature h2{font-size:clamp(54px,9vw,128px);line-height:.88;max-width:9ch;margin-bottom:6px;text-shadow:0 4px 40px rgba(0,0,0,.5)}
+.feature h2 em{font-style:normal;color:var(--saffron);display:block;font-size:.5em;letter-spacing:.02em}
+.feature .sub{max-width:34ch;font-size:clamp(18px,1.8vw,22px);margin:18px 0 22px;color:var(--cream)}
+.feature form{display:grid;gap:10px;max-width:420px}
+.feature label{font:500 12px "Spline Sans Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--saffron)}
+.feature input{font:600 22px "Familjen Grotesk",sans-serif;color:var(--cream);background:rgba(247,236,214,.08);border:2px solid var(--line);border-radius:10px;padding:14px 16px;width:100%;outline:none;transition:border-color .2s,background .2s}
+.feature input::placeholder{color:rgba(247,236,214,.45)}
+.feature input:focus{border-color:var(--saffron);background:rgba(247,236,214,.14)}
+.feature.need input{border-color:var(--sindoor);animation:shake .4s}
+@keyframes shake{25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
+.feature .btn{justify-content:center;background:var(--sindoor);color:var(--cream);box-shadow:0 6px 0 #7d1519;font-size:20px;padding:18px 30px}
+.feature .btn:hover{box-shadow:0 8px 0 #7d1519,0 18px 34px rgba(0,0,0,.45)}
+.feature .btn:active{box-shadow:0 2px 0 #7d1519}
+.feature .fine{font-size:14px;color:var(--mute);margin-top:6px}
+.feature .facts{display:flex;flex-wrap:wrap;gap:8px 26px;margin-top:26px;color:var(--cream)}
+.feature .facts span::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--peepal);margin-right:9px}
+@media(max-width:860px){
+  .feature{padding:84px 0 40px}
+  .feature{padding-bottom:250px}
+  .feature::before{inset:auto 0 0 0;height:240px;background-size:cover;background-position:70% 100%;-webkit-mask-image:linear-gradient(0deg,#000 45%,transparent);mask-image:linear-gradient(0deg,#000 45%,transparent);-webkit-mask-composite:source-over;mask-composite:add}
+  .feature::after,.feature .slash{display:none}
+  .feature h2{max-width:none}
+}
+
 /* fixed 3D stage */
-#gl{position:fixed;inset:0;width:100%;height:100%;display:block;z-index:0;background:linear-gradient(#1d3f5c,#d9876a 70%,#ffcf94)}
+#gl{position:fixed;inset:0;width:100%;height:100%;display:block;z-index:0;background:linear-gradient(#4a1d26,#d9876a 70%,#ffcf94)}
 body.nogl #gl{display:none}
-body.nogl::before{content:"";position:fixed;inset:0;z-index:0;background:linear-gradient(rgba(16,22,28,.25),rgba(16,22,28,.55)),url(media/hero-poster.jpg) center/cover}
-.vig{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(120% 90% at 50% 40%,transparent 55%,rgba(10,12,16,.55)),linear-gradient(rgba(10,12,16,.35),transparent 18%)}
+body.nogl::before{content:"";position:fixed;inset:0;z-index:0;background:linear-gradient(rgba(28,15,11,.25),rgba(28,15,11,.55)),url(media/hero-poster.jpg) center/cover}
+.vig{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(120% 90% at 50% 40%,transparent 55%,rgba(22,10,7,.55)),linear-gradient(rgba(22,10,7,.35),transparent 18%)}
 
 /* top bar */
 .bar{position:fixed;z-index:30;top:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px max(20px,calc((100vw - 1180px)/2))}
@@ -56,14 +89,14 @@ body.nogl::before{content:"";position:fixed;inset:0;z-index:0;background:linear-
 .btn.sm{padding:10px 18px;font-size:14px;box-shadow:0 4px 0 #a9680e}
 .btn.ghost{background:transparent;color:var(--cream);box-shadow:none;border:1.5px solid var(--line)}
 .btn.ghost:hover{border-color:var(--cream);transform:none;box-shadow:none}
-.mbtn{width:40px;height:40px;border-radius:50%;border:1.5px solid var(--line);background:rgba(16,22,28,.45);color:var(--cream);cursor:pointer;display:grid;place-items:center;padding:0}
+.mbtn{width:40px;height:40px;border-radius:50%;border:1.5px solid var(--line);background:rgba(28,15,11,.45);color:var(--cream);cursor:pointer;display:grid;place-items:center;padding:0}
 .mbtn svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .mbtn .w{opacity:0}.mbtn.on .w{opacity:1}.mbtn.on{border-color:var(--saffron);color:var(--saffron)}
 .place{position:fixed;z-index:20;left:50%;transform:translateX(-50%);top:72px;color:var(--cream);text-shadow:0 1px 8px rgba(0,0,0,.7);display:flex;gap:12px;align-items:center;white-space:nowrap}
 .place i{display:inline-block;width:26px;height:1px;background:var(--saffron)}
 .coinsbox{position:fixed;z-index:20;right:max(20px,calc((100vw - 1180px)/2));bottom:20px;display:flex;gap:8px;align-items:center;color:var(--cream);text-shadow:0 1px 8px rgba(0,0,0,.6)}
 .coinsbox svg{width:16px;height:16px;fill:var(--saffron)}
-body.past .place,body.past .coinsbox{opacity:0;pointer-events:none}
+body.past .place,body.past .coinsbox,body.infeat .place,body.infeat .coinsbox{opacity:0;pointer-events:none}
 @media(max-width:760px){.clock{position:static;transform:none;order:2}.mark small{display:none}.mark{font-size:16px}.bar{padding:10px 14px}.clock b{font-size:17px}.clock span{display:none}.btn.sm{padding:9px 14px}.place,.coinsbox{display:none}}
 
 /* journey chapters (scroll-driven 3D) */
@@ -81,7 +114,7 @@ body.past .place,body.past .coinsbox{opacity:0;pointer-events:none}
 .chap.hero{padding-bottom:130px}
 .hero .copy .mono{color:var(--cream);text-shadow:0 1px 10px rgba(0,0,0,.7)}
 .copy{position:relative}
-.copy::before{content:"";position:absolute;inset:-90px -120px;z-index:-1;background:radial-gradient(closest-side,rgba(12,14,18,.78) 45%,transparent);pointer-events:none}
+.copy::before{content:"";position:absolute;inset:-90px -120px;z-index:-1;background:radial-gradient(closest-side,rgba(24,11,8,.78) 45%,transparent);pointer-events:none}
 .hero h1 em{font-style:normal;color:var(--saffron)}
 .hero .copy{opacity:1;transform:none;max-width:760px}
 .hero .sub{font-size:clamp(19px,2.1vw,26px);margin:20px 0 26px;max-width:30ch;line-height:1.35}
@@ -96,7 +129,7 @@ body.past .place,body.past .coinsbox{opacity:0;pointer-events:none}
 .tags li{display:grid;grid-template-columns:132px 1fr;gap:14px;padding:12px 0;border-top:1px solid var(--line);text-shadow:0 1px 12px rgba(0,0,0,.6)}
 .tags b{font:500 12px "Spline Sans Mono",monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--saffron)}
 .moves{display:grid;gap:12px;margin-top:20px}
-.move{display:flex;gap:16px;align-items:center;background:rgba(16,22,28,.62);border:1px solid var(--line);padding:14px 18px;border-radius:6px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.move{display:flex;gap:16px;align-items:center;background:rgba(28,15,11,.62);border:1px solid var(--line);padding:14px 18px;border-radius:6px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
 .move svg{width:44px;height:44px;flex:none;stroke:var(--saffron);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .move b{display:block;font-family:"Rozha One",serif;font-weight:400;font-size:22px}
 .move span{color:var(--mute);font-size:15px}
@@ -107,8 +140,8 @@ kbd{background:rgba(247,236,214,.1);border:1px solid var(--line);border-bottom-w
 @media(max-width:760px){
   .chap{align-items:flex-end;padding:90px 0 70px;min-height:104vh}
   .chap .wrap,.chap.right .wrap{justify-content:flex-start}
-  .copy{background:linear-gradient(transparent,rgba(16,22,28,.82) 22%);padding:48px 0 0;margin:0 -20px;padding-inline:20px;max-width:none}
-  .hero .copy{background:linear-gradient(transparent,rgba(16,22,28,.75) 14%)}
+  .copy{background:linear-gradient(transparent,rgba(28,15,11,.82) 22%);padding:48px 0 0;margin:0 -20px;padding-inline:20px;max-width:none}
+  .hero .copy{background:linear-gradient(transparent,rgba(28,15,11,.75) 14%)}
   .tags li{grid-template-columns:1fr;gap:2px}.places{columns:1}.scroll{display:none}
 }
 
@@ -157,7 +190,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:14px 40px;justify-content:space-bet
 #play iframe,#play video{position:absolute;inset:0;width:100%;height:100%;border:0;background:#000}
 #play iframe{background:transparent}
 #play.waiting{background:#242424 url(media/splash.png) center/contain no-repeat}
-#play .ctrl #skip{background:var(--saffron);color:#10161c;border-color:transparent}
+#play .ctrl #skip{background:var(--saffron);color:#1c0f0b;border-color:transparent}
 #play video{object-fit:contain;z-index:2}
 #play iframe{z-index:1}
 #play .bar{position:absolute;z-index:4;left:0;right:0;bottom:0;height:5px;background:#222;display:none}
@@ -173,7 +206,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:14px 40px;justify-content:space-bet
 #over .row{display:flex;gap:8px;margin:14px 0}
 #over .share{justify-content:center}
 /* maps */
-.newchip{display:inline-flex;align-items:center;gap:10px;margin-bottom:18px;padding:7px 14px 7px 8px;border:1px solid var(--line);border-radius:999px;background:rgba(16,22,28,.6);color:var(--cream);text-decoration:none;font:500 13px "Spline Sans Mono",monospace;letter-spacing:.06em;text-transform:uppercase;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.newchip{display:inline-flex;align-items:center;gap:10px;margin-bottom:18px;padding:7px 14px 7px 8px;border:1px solid var(--line);border-radius:999px;background:rgba(28,15,11,.6);color:var(--cream);text-decoration:none;font:500 13px "Spline Sans Mono",monospace;letter-spacing:.06em;text-transform:uppercase;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
 .newchip b{background:var(--saffron);color:var(--ink);padding:3px 9px;border-radius:999px;font-weight:700}
 .newchip:hover{border-color:var(--saffron)}
 .maps{display:grid;gap:18px;grid-template-columns:1fr 1fr}
@@ -226,6 +259,22 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:14px 40px;justify-content:space-bet
 <div class="coinsbox mono"><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="7"/></svg><span id="coinsN">0</span> coins</div>
 
 <main id="top">
+<section class="feature" id="feature" aria-label="Udaipur Runs by Utkrisht">
+  <i class="slash"></i>
+  <div class="wrap">
+    <div class="by mono"><span>Utkrisht &nbsp;·&nbsp; Sports Fest of IIM Udaipur</span><b>Hosted by Utkrisht &nbsp;/&nbsp; Presented by IIM Udaipur</b></div>
+    <h2>Udaipur Runs<em>Fateh Sagar Lake Road</em></h2>
+    <p class="sub">Run the real lake road at sunset, past the bund, the Pal and Moti Magri. The Utkrisht map is live.</p>
+    <form id="featForm" autocomplete="off">
+      <label for="fName">Enter your name to run</label>
+      <input id="fName" maxlength="16" placeholder="Your name" autocomplete="nickname" required>
+      <button class="btn big" type="submit" data-track="play_click_feature"><svg viewBox="0 0 14 14"><path d="M2 1l11 6-11 6z"/></svg>Click to play</button>
+      <div class="fine">Free. Plays in your browser. Your name goes on the leaderboard.</div>
+    </form>
+    <div class="facts mono"><span>4.6 km lap</span><span>Real OpenStreetMap road</span><span>One leaderboard per map</span></div>
+  </div>
+</section>
+
 <div id="journey">
 
   <section class="chap hero in">
@@ -562,8 +611,14 @@ addEventListener("keydown",maybePrefetch,{once:true});
 addEventListener("scroll",()=>{if(scrollY>innerHeight*.5)maybePrefetch()},{once:true,passive:true});
 document.querySelectorAll("#playBtn,#playBtn2,#playBtn3,[data-map]").forEach(b=>b.addEventListener("pointerenter",maybePrefetch,{once:true}));
 
+const fName=$("#fName"),feat=$("#feature");
+fName.value=store.get("iimrun_name","");
+function needName(){const n=fName.value.trim();if(n){store.set("iimrun_name",n.slice(0,16));return n.slice(0,16)}
+  feat.classList.remove("need");void feat.offsetWidth;feat.classList.add("need");feat.scrollIntoView({behavior:"smooth",block:"start"});setTimeout(()=>fName.focus({preventScroll:true}),450);return""}
+$("#featForm").addEventListener("submit",e=>{e.preventDefault();openGame("fatehsagar")});
 function openGame(map){
   if(play.classList.contains("open"))return;
+  if(!needName())return;
   if(typeof map==="string"&&MAPS[map]){gameMap=map;store.set("iimrun_map",map)}
   if(window.__stopGL)window.__stopGL();
   play.classList.add("open");document.body.style.overflow="hidden";
@@ -598,7 +653,7 @@ async function bootGame(){
   await startPreload();
   bar.firstElementChild.style.width="100%";status.textContent="Starting…";
   frame.onload=()=>{play.classList.remove("waiting");status.textContent="";bar.style.display="none";frame.focus()};
-  frame.src="game/index.html?map="+gameMap;
+  frame.src="game/index.html?map="+gameMap+"&name="+encodeURIComponent(store.get("iimrun_name",""));
 }
 function skip(){if(!clipOn)return;track("intro_skip");bootGame()}
 skipBtn.addEventListener("click",skip);
@@ -609,7 +664,7 @@ $("#closeGame").onclick=()=>location.reload();                     // frees the 
 addEventListener("keydown",e=>{if(e.key==="Escape"&&lb.classList.contains("open"))lb.classList.remove("open")});
 for(const id of ["#playBtn","#playBtn2","#playBtn3"])$(id).onclick=()=>openGame();
 document.querySelectorAll("[data-map]").forEach(b=>b.addEventListener("click",()=>openGame(b.dataset.map)));
-if(new URLSearchParams(location.search).get("only")==="after"){const st=document.createElement("style");st.textContent="#journey,#gl,.vig,.place,.coinsbox{display:none!important}body{background:#10161c}";document.head.append(st)}  /* test hook: ?only=after */
+if(new URLSearchParams(location.search).get("only")==="after"){const st=document.createElement("style");st.textContent="#journey,#gl,.vig,.place,.coinsbox{display:none!important}body{background:#1c0f0b}";document.head.append(st)}  /* test hook: ?only=after */
 {const _t=new URLSearchParams(location.search).get("t");if(_t)addEventListener("load",()=>{openGame();if(_t==="skip")setTimeout(skip,1500)})}  /* test hook: ?t=open or ?t=skip */
 $("#oAgain").onclick=()=>{$("#over").classList.remove("open");const f=frame.src;frame.src="about:blank";setTimeout(()=>{frame.src=f;frame.onload=()=>frame.focus()},60);track("play_again")};
 /* messages from the game (scripts/main.gd _tell_page) */
@@ -657,6 +712,7 @@ renderShare($("#shareMain"),0);selectBoard(boardMap);loadPlays();
 /* reveal chapters as they scroll in; hide the live stats once past the journey */
 const io=new IntersectionObserver(es=>es.forEach(e=>e.target.classList.toggle("in",e.isIntersecting)),{threshold:.35});
 document.querySelectorAll(".chap").forEach(c=>io.observe(c));
+addEventListener("scroll",()=>document.body.classList.toggle("infeat",feat.getBoundingClientRect().bottom>innerHeight*.35),{passive:true});document.body.classList.add("infeat");
 const jr=$("#journey");addEventListener("scroll",()=>document.body.classList.toggle("past",jr.getBoundingClientRect().bottom<innerHeight*.6),{passive:true});
 </script>
 <script>
