@@ -44,9 +44,9 @@ h1,h2,h3{font-family:"Rozha One",Georgia,serif;font-weight:400;margin:0;letter-s
 .dots{display:flex;justify-content:center;gap:7px;margin:0 0 14px}
 .dots button{width:7px;height:7px;border-radius:50%;border:0;padding:0;background:rgba(23,18,13,.25);cursor:pointer;transition:width .25s,background .25s}
 .dots button.on{width:22px;border-radius:6px;background:#17120d}
-.banner{position:relative;display:grid;grid-template-columns:1.05fr 1fr;min-height:310px;border-radius:20px;overflow:hidden;background:linear-gradient(100deg,#c8c2b8,#e7e2d8);color:#17120d;box-shadow:0 1px 0 rgba(255,255,255,.65) inset,0 18px 40px rgba(60,40,20,.14)}
+.banner{position:relative;min-height:330px;border-radius:20px;overflow:hidden;background:linear-gradient(100deg,#c8c2b8,#e7e2d8);color:#17120d;box-shadow:0 1px 0 rgba(255,255,255,.65) inset,0 18px 40px rgba(60,40,20,.14)}
 .banner::after{content:"";position:absolute;left:0;right:0;bottom:0;height:12px;background:linear-gradient(90deg,#ffe36b,#f5a81c 52%,#ffd84d);z-index:3}
-.bn-copy{position:relative;z-index:2;padding:54px 20px 42px 44px;display:flex;flex-direction:column;justify-content:center;gap:8px}
+.bn-copy{position:relative;z-index:2;padding:54px 20px 168px 44px;display:flex;flex-direction:column;justify-content:center;gap:8px}
 .bn-k{font:500 12px "Spline Sans Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:#7a4f16}
 .banner h2{font-size:clamp(36px,4.8vw,64px);line-height:1;color:#17120d}
 .banner h2 em{display:block;font:700 clamp(20px,2.3vw,30px)/1.15 "Familjen Grotesk",sans-serif;font-style:normal;margin-top:10px;letter-spacing:-.01em}
@@ -255,6 +255,36 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:14px 40px;justify-content:space-bet
 .tabs button{border:1px solid var(--line);background:transparent;color:var(--mute);padding:8px 16px;border-radius:999px;font:600 14px "Familjen Grotesk",sans-serif;cursor:pointer}
 .tabs button.on{background:var(--saffron);border-color:var(--saffron);color:var(--ink)}
 #over .box{background:var(--ink2)}#over .big{font-family:"Rozha One",serif;font-weight:400}#over h3{font-family:"Rozha One",serif;font-weight:400}#play{--gold2:#d98c14}#lightbox{z-index:80}
+
+/* motion + material (after Apple's "Designing Fluid Interfaces"): response on press, springs, translucent chrome */
+.banner{outline:none;touch-action:pan-y}
+.banner:focus-visible{box-shadow:0 0 0 3px #17120d,0 18px 40px rgba(60,40,20,.14)}
+.bn-track{display:flex;width:100%;will-change:transform;cursor:grab;user-select:none;-webkit-user-select:none}
+.bn-track.drag{cursor:grabbing}
+.bn-slide{flex:0 0 100%;display:grid;grid-template-columns:1.05fr 1fr;min-height:330px}
+.bn-form{position:absolute;z-index:5;left:44px;bottom:44px;width:min(540px,calc(50% - 20px))}
+.bn-art img{pointer-events:none;-webkit-user-drag:none}
+.banner h2{letter-spacing:-.02em;line-height:1.02}
+.hero h1,.endcta h2{letter-spacing:-.03em}
+.s h2{letter-spacing:-.02em}
+body{letter-spacing:.004em}
+.bar{-webkit-backdrop-filter:blur(16px) saturate(160%);backdrop-filter:blur(16px) saturate(160%);background:rgba(28,15,11,.3);border-bottom:1px solid rgba(255,255,255,.1);box-shadow:inset 0 1px 0 rgba(255,255,255,.12)}
+body.infeat .bar{background:rgba(236,232,224,.74);border-bottom:1px solid rgba(23,18,13,.1);box-shadow:inset 0 1px 0 rgba(255,255,255,.7)}
+.btn,.mbtn,.dots button,.bn-x{transition-duration:90ms}
+.btn:active,.mbtn:active{transform:translateY(4px) scale(.97)}
+.bn-x:active{transform:scale(.9)}
+#feature.bye{transition:opacity .28s ease-out,transform .28s cubic-bezier(.3,.7,.2,1);opacity:0;transform:translateY(-14px) scale(.985)}
+#over .box{will-change:transform;touch-action:pan-x}
+#over .grab{width:40px;height:5px;border-radius:3px;background:var(--line);margin:-12px auto 14px}
+@media(max-width:820px){
+  .bn-slide{grid-template-columns:1fr}
+  .bn-copy{padding:54px 22px 12px}
+  .bn-form{position:relative;left:auto;bottom:auto;width:auto;margin:-4px 22px 30px}
+  .bn-art{min-height:190px}
+}
+@media(prefers-reduced-transparency:reduce){.bar,body.infeat .bar{-webkit-backdrop-filter:none;backdrop-filter:none;background:#ece8e0}body:not(.infeat) .bar{background:#1c0f0b}}
+@media(prefers-contrast:more){.banner{background:#fff;box-shadow:0 0 0 2px #17120d}.bn-sub,.bn-k{color:#17120d}.bn-form input{border-color:#17120d}}
+@media(prefers-reduced-motion:reduce){#feature.bye{transform:none}.btn:active{transform:none}}
 .btn{background:linear-gradient(#ffd84d,#f5a81c);color:#17120d}
 .btn.ghost{background:transparent;color:var(--cream)}
 </style>
@@ -278,20 +308,31 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:14px 40px;justify-content:space-bet
 <section class="topband lightzone" id="feature" aria-label="Udaipur Runs by Utkrisht">
   <div class="wrap">
     <div class="dots" id="featDots" role="tablist" aria-label="Featured maps"><button class="on" aria-label="Fateh Sagar Lake Road"></button><button aria-label="IIM Udaipur Campus"></button></div>
-    <div class="banner" id="banner">
+    <div class="banner" id="banner" tabindex="0" aria-roledescription="carousel" aria-label="Featured maps, swipe or use the arrow keys">
       <button class="bn-x" id="bnX" aria-label="Close this banner" title="Close">&times;</button>
-      <div class="bn-copy">
-        <div class="bn-k" id="bnK"></div>
-        <h2 id="bnT">Udaipur Runs<em id="bnE"></em></h2>
-        <p class="bn-sub" id="bnS"></p>
-        <form class="bn-form" id="featForm" autocomplete="off">
-          <label class="bn-lab" for="fName" style="flex-basis:100%">Enter your name to run</label>
-          <input id="fName" maxlength="16" placeholder="Your name" autocomplete="nickname" required>
-          <button class="btn" type="submit" data-track="play_click_feature"><svg viewBox="0 0 14 14"><path d="M2 1l11 6-11 6z"/></svg>Click to play</button>
-        </form>
+      <div class="bn-track" id="bnTrack">
+        <article class="bn-slide" aria-label="Fateh Sagar Lake Road">
+          <div class="bn-copy">
+            <div class="bn-k">Utkrisht · Sports Fest of IIM Udaipur</div>
+            <h2>Udaipur Runs<em>Fateh Sagar Lake Road</em></h2>
+            <p class="bn-sub">Run the real lake road at sunset. Hosted by Utkrisht, presented by IIM Udaipur.</p>
+          </div>
+          <div class="bn-art"><img src="media/udaipur-runs.jpg" alt="" width="1600" height="900" draggable="false"><span class="bn-chip">New map</span></div>
+        </article>
+        <article class="bn-slide" aria-label="IIM Udaipur Campus">
+          <div class="bn-copy">
+            <div class="bn-k">Map 01 · Balicha</div>
+            <h2>Udaipur Runs<em>IIM Udaipur Campus</em></h2>
+            <p class="bn-sub">The original run: the main gate, the ghats, the courtyard and the skywalk at golden hour.</p>
+          </div>
+          <div class="bn-art"><img src="media/shot1.jpg" alt="" width="1280" height="720" draggable="false" loading="lazy"><span class="bn-chip">Campus</span></div>
+        </article>
       </div>
-      <div class="bn-art"><img id="bnImg" src="media/udaipur-runs.jpg" alt="" width="1600" height="900"></div>
-      <span class="bn-chip" id="bnChip">New map</span>
+      <form class="bn-form" id="featForm" autocomplete="off">
+        <label class="bn-lab" for="fName" style="flex-basis:100%">Enter your name to run</label>
+        <input id="fName" maxlength="16" placeholder="Your name" autocomplete="nickname" required>
+        <button class="btn" type="submit" data-track="play_click_feature"><svg viewBox="0 0 14 14"><path d="M2 1l11 6-11 6z"/></svg>Click to play</button>
+      </form>
     </div>
   </div>
 </section>
@@ -491,7 +532,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:14px 40px;justify-content:space-bet
   <div class="bar" id="bar"><i></i></div>
   <div class="ctrl"><button id="skip">Skip ›</button><button id="closeGame" aria-label="Close game">Close</button></div>
   <div id="over"><div class="box">
-    <button class="xbtn" id="oClose" aria-label="Close game">&times;</button><h3>Run over</h3><div class="big" id="oScore">0</div><div style="color:var(--mute)" id="oSub"></div>
+    <button class="xbtn" id="oClose" aria-label="Close game">&times;</button><div class="grab" aria-hidden="true"></div><h3>Run over</h3><div class="big" id="oScore">0</div><div style="color:var(--mute)" id="oSub"></div>
     <div class="row"><input id="oName" maxlength="16" placeholder="Your name (for the board)" autocomplete="nickname"><button class="btn" id="oSave">Save</button></div>
     <div class="share" id="shareOver"></div>
     <button class="btn ghost" id="oAgain">Play again</button>
@@ -637,21 +678,79 @@ fName.value=store.get("iimrun_name","");
 let bannerOff=false;try{bannerOff=sessionStorage.getItem("iimrun_banner_off")==="1"}catch{}
 function closeBanner(){bannerOff=true;try{sessionStorage.setItem("iimrun_banner_off","1")}catch{}feat.style.display="none";document.body.classList.remove("infeat")}
 if(bannerOff)closeBanner();
-$("#bnX").onclick=()=>{clearInterval(slideTimer);closeBanner();scrollTo(0,0)};
+$("#bnX").onclick=()=>{clearInterval(slideTimer);feat.classList.add("bye");setTimeout(()=>{closeBanner();scrollTo(0,0)},RM?0:290)};
 function needName(){if(bannerOff)return store.get("iimrun_name","")||"Runner";const n=fName.value.trim();if(n){store.set("iimrun_name",n.slice(0,16));return n.slice(0,16)}
   ban.classList.remove("need");void ban.offsetWidth;ban.classList.add("need");feat.scrollIntoView({behavior:"smooth",block:"start"});setTimeout(()=>fName.focus({preventScroll:true}),450);return""}
-const SLIDES=[
- {k:"Utkrisht · Sports Fest of IIM Udaipur",e:"Fateh Sagar Lake Road",s:"Run the real lake road at sunset. Hosted by Utkrisht, presented by IIM Udaipur.",img:"media/udaipur-runs.jpg",pos:"80% 85%",map:"fatehsagar",chip:"New map"},
- {k:"Map 01 · Balicha",e:"IIM Udaipur Campus",s:"The original run: the main gate, the ghats, the courtyard and the skywalk at golden hour.",img:"media/shot1.jpg",pos:"50% 50%",map:"campus",chip:"Campus"}];
-let slide=0,slideTimer=0;
-function showSlide(i){slide=i;const d=SLIDES[i],img=$("#bnImg");
-  $("#bnK").textContent=d.k;$("#bnE").textContent=d.e;$("#bnS").textContent=d.s;$("#bnChip").textContent=d.chip;
-  img.classList.add("fade");setTimeout(()=>{img.src=d.img;img.style.objectPosition=d.pos;img.onload=()=>img.classList.remove("fade");setTimeout(()=>img.classList.remove("fade"),300)},180);
-  document.querySelectorAll("#featDots button").forEach((b,j)=>b.classList.toggle("on",j===i))}
-document.querySelectorAll("#featDots button").forEach((b,j)=>b.onclick=()=>{clearInterval(slideTimer);showSlide(j)});
-showSlide(0);slideTimer=setInterval(()=>showSlide((slide+1)%SLIDES.length),7000);
-$("#banner").addEventListener("pointerenter",()=>clearInterval(slideTimer));
-$("#featForm").addEventListener("submit",e=>{e.preventDefault();openGame(SLIDES[slide].map)});
+/* ---- motion: a critically damped spring that starts from the live value, keeps the finger's velocity, and can be grabbed mid-flight ---- */
+const RM=matchMedia("(prefers-reduced-motion: reduce)").matches;
+function Spring(write,o={}){
+  const response=o.response||.4,damping=o.damping==null?1:o.damping;
+  const k=Math.pow(2*Math.PI/response,2),c=2*damping*Math.sqrt(k);
+  let x=o.from||0,v=0,target=x,raf=0,last=0;
+  function step(t){const dt=Math.min(.032,(t-last)/1000||.016);last=t;
+    v+=(-k*(x-target)-c*v)*dt;x+=v*dt;write(x);
+    if(Math.abs(v)<.4&&Math.abs(x-target)<.2){x=target;v=0;write(x);raf=0;return}
+    raf=requestAnimationFrame(step)}
+  return{to(t,vel){target=t;if(RM){cancelAnimationFrame(raf);raf=0;x=t;v=0;write(x);return}
+      if(vel!=null)v=vel;if(!raf){last=performance.now();raf=requestAnimationFrame(step)}},
+    set(val){cancelAnimationFrame(raf);raf=0;x=val;v=0;write(x)},get x(){return x},get v(){return v}};
+}
+/* where a flick would come to rest (exponential deceleration, like scroll) */
+const projectRest=(vel,rate=.998)=>vel/1000*rate/(1-rate);
+/* the further past an edge, the less the thing follows the finger */
+const rubber=(over,dim,c=.55)=>over*dim*c/(dim+c*Math.abs(over));
+/* velocity from the last ~100 ms of pointer samples */
+function velocityOf(hist){const n=hist.length;if(n<2)return 0;const b=hist[n-1];let a=hist[0];
+  for(const h of hist)if(b.t-h.t<=100){a=h;break}const dt=(b.t-a.t)/1000;return dt>0?(b.x-a.x)/dt:0}
+
+/* ---- the banner: swipe it, flick it, grab it while it moves ---- */
+const bnT=$("#bnTrack"),bnSlides=[...bnT.children],bnDots=[...document.querySelectorAll("#featDots button")];
+let bnIdx=0,slideTimer=0,bnW=ban.clientWidth;
+const trackSpring=Spring(x=>{bnT.style.transform=`translate3d(${x}px,0,0)`});
+function bnSet(i){bnIdx=i;bnDots.forEach((b,j)=>b.classList.toggle("on",j===i));
+  bnSlides.forEach((sl,j)=>{sl.setAttribute("aria-hidden",j===i?"false":"true")});
+  const img=bnSlides[i].querySelector("img");if(img&&img.loading==="lazy")img.loading="eager"}
+function bnGo(i,vel){i=Math.max(0,Math.min(bnSlides.length-1,i));bnSet(i);trackSpring.to(-i*bnW,vel)}
+addEventListener("resize",()=>{bnW=ban.clientWidth;trackSpring.set(-bnIdx*bnW)});
+bnDots.forEach((b,j)=>b.onclick=()=>{clearInterval(slideTimer);bnGo(j)});
+let bnDrag=null;
+bnT.addEventListener("pointerdown",e=>{if(e.button>0)return;
+  bnDrag={id:e.pointerId,x0:e.clientX,y0:e.clientY,base:trackSpring.x,hist:[{x:e.clientX,t:e.timeStamp}],on:false};clearInterval(slideTimer)});
+bnT.addEventListener("pointermove",e=>{if(!bnDrag||e.pointerId!==bnDrag.id)return;
+  const dx=e.clientX-bnDrag.x0,dy=e.clientY-bnDrag.y0;
+  if(!bnDrag.on){if(Math.abs(dx)<10&&Math.abs(dy)<10)return;               // hysteresis: wait for a clear intent
+    if(Math.abs(dy)>Math.abs(dx)){bnDrag=null;return}                        // vertical: leave it to the page scroll
+    bnDrag.on=true;bnT.setPointerCapture(e.pointerId);bnT.classList.add("drag")}
+  bnDrag.hist.push({x:e.clientX,t:e.timeStamp});if(bnDrag.hist.length>8)bnDrag.hist.shift();
+  let x=bnDrag.base+dx;const lo=-(bnSlides.length-1)*bnW;
+  if(x>0)x=rubber(x,bnW);else if(x<lo)x=lo+rubber(x-lo,bnW);                   // soft edges
+  trackSpring.set(x)});
+function bnEnd(e){if(!bnDrag||e.pointerId!==bnDrag.id)return;const d=bnDrag;bnDrag=null;bnT.classList.remove("drag");
+  if(!d.on)return;const v=velocityOf(d.hist);                               // px/s, signed
+  const rest=trackSpring.x+projectRest(v);                                      // where it is headed, not where it is
+  bnGo(Math.round(-rest/bnW),v)}
+bnT.addEventListener("pointerup",bnEnd);bnT.addEventListener("pointercancel",bnEnd);
+bnT.addEventListener("click",e=>{if(Math.abs(trackSpring.x+bnIdx*bnW)>3)e.preventDefault()});
+ban.addEventListener("keydown",e=>{if(e.target!==ban)return;if(e.key==="ArrowRight"){clearInterval(slideTimer);bnGo(bnIdx+1)}if(e.key==="ArrowLeft"){clearInterval(slideTimer);bnGo(bnIdx-1)}});
+bnSet(0);slideTimer=setInterval(()=>bnGo((bnIdx+1)%bnSlides.length),7000);
+ban.addEventListener("pointerenter",()=>clearInterval(slideTimer));
+const SLIDE_MAPS=["fatehsagar","campus"];
+$("#featForm").addEventListener("submit",e=>{e.preventDefault();openGame(SLIDE_MAPS[bnIdx])});
+
+/* ---- the "Run over" box is a sheet: it springs up, and you can bnDrag it down to leave ---- */
+const overEl=$("#over"),overBox=overEl.querySelector(".box");
+const overSpring=Spring(y=>{overBox.style.transform=`translate3d(0,${y}px,0)`;overBox.style.opacity=String(Math.max(0,1-Math.max(y,0)/320))},{from:0});
+function openOver(){overSpring.set(70);overEl.classList.add("open");overSpring.to(0)}
+let ovSheet=null;
+overBox.addEventListener("pointerdown",e=>{if(e.target.closest("input,button,a,textarea"))return;
+  ovSheet={id:e.pointerId,y0:e.clientY,base:overSpring.x,hist:[{x:e.clientY,t:e.timeStamp}]};overBox.setPointerCapture(e.pointerId)});
+overBox.addEventListener("pointermove",e=>{if(!ovSheet||e.pointerId!==ovSheet.id)return;
+  let y=ovSheet.base+(e.clientY-ovSheet.y0);if(y<0)y=-rubber(-y,260,.4);                  // resist going up
+  ovSheet.hist.push({x:e.clientY,t:e.timeStamp});if(ovSheet.hist.length>8)ovSheet.hist.shift();overSpring.set(y)});
+function ovEnd(e){if(!ovSheet||e.pointerId!==ovSheet.id)return;const v=velocityOf(ovSheet.hist);ovSheet=null;
+  const rest=overSpring.x+projectRest(v,.99);
+  if(rest>150){overSpring.to(520,v);setTimeout(()=>location.reload(),220)}else overSpring.to(0,v)}   // thrown down = leave; otherwise settle back
+overBox.addEventListener("pointerup",ovEnd);overBox.addEventListener("pointercancel",ovEnd);
 function openGame(map){
   if(play.classList.contains("open"))return;
   if(!needName())return;
@@ -714,7 +813,7 @@ addEventListener("message",e=>{
     if(d.name){store.set("iimrun_name",d.name);if(d.score>0)submitScore(d.name,d.score,lastMap)}  /* the game asked for the name before the run: straight onto the board */
     $("#oScore").textContent=d.score;$("#oSub").textContent=`${d.metres} m · ${d.coins} coins`;
     $("#oName").value=store.get("iimrun_name","");renderShare($("#shareOver"),d.score,lastMap);
-    setTimeout(()=>$("#over").classList.add("open"),900);
+    setTimeout(openOver,900);
   }});
 $("#oSave").onclick=()=>{const n=($("#oName").value.trim()||"Anonymous").slice(0,16);store.set("iimrun_name",n);
   submitScore(n,lastScore,lastMap);renderShare($("#shareOver"),lastScore,lastMap);$("#oSave").textContent="Saved";setTimeout(()=>$("#oSave").textContent="Save",1500)};
