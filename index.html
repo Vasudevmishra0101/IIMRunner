@@ -40,11 +40,14 @@ h1,h2,h3{font-family:"Rozha One",Georgia,serif;font-weight:400;margin:0;letter-s
 .after .facts div{background:rgba(23,18,13,.04)}
 .after .endcta{color:#f7ecd6;--cream:#f7ecd6;--mute:#c9bda6;--line:rgba(247,236,214,.18);--ink:#1c0f0b;--saffron:#e4493b}
 .after .endcta input{background:rgba(247,236,214,.06)}
-.topband{position:relative;z-index:7;padding:92px 0 38px;background:var(--ink)}
+.topband{position:relative;z-index:7;padding:92px 0 38px;background:transparent}
 .dots{display:flex;justify-content:center;gap:7px;margin:0 0 14px}
 .dots button{width:7px;height:7px;border-radius:50%;border:0;padding:0;background:rgba(23,18,13,.25);cursor:pointer;transition:width .25s,background .25s}
 .dots button.on{width:22px;border-radius:6px;background:#17120d}
-.banner{position:relative;min-height:330px;border-radius:20px;overflow:hidden;background:linear-gradient(100deg,#c8c2b8,#e7e2d8);color:#17120d;box-shadow:0 1px 0 rgba(255,255,255,.65) inset,0 18px 40px rgba(60,40,20,.14)}
+.dots.tabs{gap:8px;margin-bottom:14px}
+.dots.tabs button,.dots.tabs button.on{width:auto;height:auto;padding:8px 18px;border-radius:999px;font:600 14px "Familjen Grotesk",sans-serif;color:#17120d;background:rgba(236,232,224,.55);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border:1px solid rgba(23,18,13,.22)}
+.dots.tabs button.on{background:#17120d;color:#f7ecd6;border-color:#17120d}
+.banner{position:relative;min-height:330px;border-radius:20px;overflow:hidden;background:rgba(236,232,224,.42);-webkit-backdrop-filter:blur(22px) saturate(150%);backdrop-filter:blur(22px) saturate(150%);color:#17120d;border:1px solid rgba(255,255,255,.55);box-shadow:0 1px 0 rgba(255,255,255,.7) inset,0 18px 40px rgba(40,20,10,.22)}
 .banner::after{content:"";position:absolute;left:0;right:0;bottom:0;height:12px;background:linear-gradient(90deg,#e4493b,#a3281d 52%,#e4493b);z-index:3}
 .bn-copy{position:relative;z-index:2;padding:54px 20px 168px 44px;display:flex;flex-direction:column;justify-content:center;gap:8px}
 .bn-k{font:500 12px "Spline Sans Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:#a3281d}
@@ -59,7 +62,7 @@ h1,h2,h3{font-family:"Rozha One",Georgia,serif;font-weight:400;margin:0;letter-s
 .banner.need input{border-color:var(--sindoor);animation:shake .4s}
 @keyframes shake{25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
 .bn-form .btn{white-space:nowrap}
-.bn-art{position:relative;min-height:250px;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 24%);mask-image:linear-gradient(90deg,transparent,#000 24%)}
+.bn-art{position:relative;min-height:250px;overflow:hidden;opacity:.9;-webkit-mask-image:linear-gradient(90deg,transparent,#000 30%,#000 86%,transparent);mask-image:linear-gradient(90deg,transparent,#000 30%,#000 86%,transparent)}
 .bn-art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .35s}
 .bn-art img.fade{opacity:0}
 .bn-x{position:absolute;z-index:6;top:10px;left:12px;width:42px;height:42px;border-radius:50%;border:1px solid rgba(23,18,13,.3);background:rgba(236,232,224,.85);color:#17120d;font-size:22px;line-height:1;cursor:pointer;display:grid;place-items:center;padding:0}
@@ -307,7 +310,7 @@ body.infeat .bar{background:rgba(236,232,224,.74);border-bottom:1px solid rgba(2
 <main id="top">
 <section class="topband lightzone" id="feature" aria-label="Udaipur Runs by Utkrisht">
   <div class="wrap">
-    <div class="dots" id="featDots" role="tablist" aria-label="Featured maps"><button class="on" aria-label="Fateh Sagar Lake Road"></button><button aria-label="IIM Udaipur Campus"></button></div>
+    <div class="dots tabs" id="featDots" role="tablist" aria-label="Featured maps"><button class="on" role="tab">Fateh Sagar Lake Road</button><button role="tab">IIM Udaipur Campus</button></div>
     <div class="banner" id="banner" tabindex="0" aria-roledescription="carousel" aria-label="Featured maps, swipe or use the arrow keys">
       <button class="bn-x" id="bnX" aria-label="Close this banner" title="Close">&times;</button>
       <div class="bn-track" id="bnTrack">
