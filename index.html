@@ -21,8 +21,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@400;500;600;700&family=Rozha+One&family=Spline+Sans+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-:root{--ink:#1c0f0b;--ink2:#2b1712;--teal:#7a9a3d;--sand:#e3b583;--brick:#a9322f;--saffron:#f3a72f;--cream:#f7ecd6;--alarm:#e0483c;--mute:#c9bda6;
-  --lotus:#e58aa0;--peepal:#7a9a3d;--sindoor:#c3272b;--bg:#1c0f0b;--card:rgba(247,236,214,.06);--line:rgba(247,236,214,.18);--gold:#f3a72f;--mag:#c3272b}
+:root{--ink:#1c0f0b;--ink2:#2b1712;--teal:#7a9a3d;--sand:#e9b9a6;--brick:#a9322f;--saffron:#e4493b;--cream:#f7ecd6;--alarm:#e0483c;--mute:#c9bda6;
+  --lotus:#e58aa0;--peepal:#7a9a3d;--sindoor:#c3272b;--bg:#1c0f0b;--card:rgba(247,236,214,.06);--line:rgba(247,236,214,.18);--gold:#e4493b;--mag:#c3272b}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--ink);color:var(--cream);font:17px/1.6 "Familjen Grotesk",system-ui,sans-serif;-webkit-text-size-adjust:100%;overflow-x:hidden}
@@ -35,19 +35,19 @@ h1,h2,h3{font-family:"Rozha One",Georgia,serif;font-weight:400;margin:0;letter-s
 
 
 /* top banner: Udaipur Runs by Utkrisht (a wide card, warm greige with black type and a gold edge) */
-.lightzone,.after{--cream:#17120d;--mute:#5f584d;--line:rgba(23,18,13,.2);--ink:#ece8e0;--ink2:#e2ddd3;--card:rgba(23,18,13,.05);--saffron:#9a5f00;--sand:#7a4f16;--gold:#c47f00;color:var(--cream)}
+.lightzone,.after{--cream:#17120d;--mute:#5f584d;--line:rgba(23,18,13,.2);--ink:#ece8e0;--ink2:#e2ddd3;--card:rgba(23,18,13,.05);--saffron:#a3281d;--sand:#8a2a1e;--gold:#a3281d;color:var(--cream)}
 .lightzone input,.lightzone textarea,.after input,.after textarea{background:#fff}
 .after .facts div{background:rgba(23,18,13,.04)}
-.after .endcta{color:#f7ecd6;--cream:#f7ecd6;--mute:#c9bda6;--line:rgba(247,236,214,.18);--ink:#1c0f0b;--saffron:#f3a72f}
+.after .endcta{color:#f7ecd6;--cream:#f7ecd6;--mute:#c9bda6;--line:rgba(247,236,214,.18);--ink:#1c0f0b;--saffron:#e4493b}
 .after .endcta input{background:rgba(247,236,214,.06)}
 .topband{position:relative;z-index:7;padding:92px 0 38px;background:var(--ink)}
 .dots{display:flex;justify-content:center;gap:7px;margin:0 0 14px}
 .dots button{width:7px;height:7px;border-radius:50%;border:0;padding:0;background:rgba(23,18,13,.25);cursor:pointer;transition:width .25s,background .25s}
 .dots button.on{width:22px;border-radius:6px;background:#17120d}
 .banner{position:relative;min-height:330px;border-radius:20px;overflow:hidden;background:linear-gradient(100deg,#c8c2b8,#e7e2d8);color:#17120d;box-shadow:0 1px 0 rgba(255,255,255,.65) inset,0 18px 40px rgba(60,40,20,.14)}
-.banner::after{content:"";position:absolute;left:0;right:0;bottom:0;height:12px;background:linear-gradient(90deg,#ffe36b,#f5a81c 52%,#ffd84d);z-index:3}
+.banner::after{content:"";position:absolute;left:0;right:0;bottom:0;height:12px;background:linear-gradient(90deg,#e4493b,#a3281d 52%,#e4493b);z-index:3}
 .bn-copy{position:relative;z-index:2;padding:54px 20px 168px 44px;display:flex;flex-direction:column;justify-content:center;gap:8px}
-.bn-k{font:500 12px "Spline Sans Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:#7a4f16}
+.bn-k{font:500 12px "Spline Sans Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:#a3281d}
 .banner h2{font-size:clamp(36px,4.8vw,64px);line-height:1;color:#17120d}
 .banner h2 em{display:block;font:700 clamp(20px,2.3vw,30px)/1.15 "Familjen Grotesk",sans-serif;font-style:normal;margin-top:10px;letter-spacing:-.01em}
 .bn-sub{margin:4px 0 0;max-width:36ch;color:#3b342b;font-size:16px}
@@ -55,19 +55,19 @@ h1,h2,h3{font-family:"Rozha One",Georgia,serif;font-weight:400;margin:0;letter-s
 .bn-form{display:flex;gap:10px;flex-wrap:wrap;max-width:540px}
 .bn-form input{flex:1 1 170px;min-width:0;font:600 18px "Familjen Grotesk",sans-serif;color:#17120d;background:#fff;border:2px solid rgba(23,18,13,.22);border-radius:10px;padding:13px 14px;outline:none;transition:border-color .2s}
 .bn-form input::placeholder{color:rgba(23,18,13,.4)}
-.bn-form input:focus{border-color:#c47f00}
+.bn-form input:focus{border-color:#a3281d}
 .banner.need input{border-color:var(--sindoor);animation:shake .4s}
 @keyframes shake{25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
 .bn-form .btn{white-space:nowrap}
 .bn-art{position:relative;min-height:250px;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 24%);mask-image:linear-gradient(90deg,transparent,#000 24%)}
 .bn-art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .35s}
 .bn-art img.fade{opacity:0}
-.bn-x{position:absolute;z-index:6;top:12px;left:14px;width:34px;height:34px;border-radius:50%;border:1px solid rgba(23,18,13,.3);background:rgba(236,232,224,.85);color:#17120d;font-size:22px;line-height:1;cursor:pointer;display:grid;place-items:center;padding:0}
+.bn-x{position:absolute;z-index:6;top:10px;left:12px;width:42px;height:42px;border-radius:50%;border:1px solid rgba(23,18,13,.3);background:rgba(236,232,224,.85);color:#17120d;font-size:22px;line-height:1;cursor:pointer;display:grid;place-items:center;padding:0}
 .bn-x:hover{background:#17120d;color:#ece8e0}
 .bn-chip{position:absolute;z-index:4;top:18px;right:18px;background:rgba(23,18,13,.55);color:#fff;padding:6px 12px;border-radius:8px;font:500 12px "Spline Sans Mono",monospace;letter-spacing:.12em;text-transform:uppercase}
 body.infeat .bar{background:#ece8e0;box-shadow:0 1px 0 rgba(23,18,13,.12)}
 body.infeat .mark,body.infeat .clock{color:#17120d;text-shadow:none}
-body.infeat .mark small{color:#9a5f00}
+body.infeat .mark small{color:#a3281d}
 body.infeat .mbtn{background:transparent;color:#17120d;border-color:rgba(23,18,13,.3)}
 @media(max-width:820px){
   .topband{padding-top:84px}
@@ -92,12 +92,12 @@ body.nogl::before{content:"";position:fixed;inset:0;z-index:0;background:linear-
 .clock span{font-size:10px;letter-spacing:.18em;opacity:.85}
 .clock.late b{color:var(--alarm)}
 .actions{display:flex;gap:10px;align-items:center}
-.btn{display:inline-flex;align-items:center;gap:10px;border:0;cursor:pointer;font:600 16px "Familjen Grotesk",sans-serif;letter-spacing:.02em;text-decoration:none;color:var(--ink);background:var(--saffron);padding:14px 26px;border-radius:4px;position:relative;box-shadow:0 6px 0 #a9680e,0 14px 30px rgba(0,0,0,.35);transition:transform .12s,box-shadow .12s}
-.btn:hover{transform:translateY(-2px);box-shadow:0 8px 0 #a9680e,0 18px 34px rgba(0,0,0,.4)}
-.btn:active{transform:translateY(4px);box-shadow:0 2px 0 #a9680e}
+.btn{display:inline-flex;align-items:center;gap:10px;border:0;cursor:pointer;font:600 16px "Familjen Grotesk",sans-serif;letter-spacing:.02em;text-decoration:none;color:var(--ink);background:var(--saffron);padding:14px 26px;border-radius:4px;position:relative;box-shadow:0 6px 0 #6b140d,0 14px 30px rgba(0,0,0,.35);transition:transform .12s,box-shadow .12s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 8px 0 #6b140d,0 18px 34px rgba(0,0,0,.4)}
+.btn:active{transform:translateY(4px);box-shadow:0 2px 0 #6b140d}
 .btn svg{width:14px;height:14px;fill:currentColor}
 .btn.big{font-size:19px;padding:18px 34px}
-.btn.sm{padding:10px 18px;font-size:14px;box-shadow:0 4px 0 #a9680e}
+.btn.sm{padding:10px 18px;font-size:14px;box-shadow:0 4px 0 #6b140d}
 .btn.ghost{background:transparent;color:var(--cream);box-shadow:none;border:1.5px solid var(--line)}
 .btn.ghost:hover{border-color:var(--cream);transform:none;box-shadow:none}
 .mbtn{width:40px;height:40px;border-radius:50%;border:1.5px solid var(--line);background:rgba(28,15,11,.45);color:var(--cream);cursor:pointer;display:grid;place-items:center;padding:0}
@@ -200,7 +200,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:14px 40px;justify-content:space-bet
 #play.open{display:block}
 #play iframe,#play video{position:absolute;inset:0;width:100%;height:100%;border:0;background:#000}
 #play iframe{background:transparent}
-#play.waiting{background:#242424 url(media/splash.png) center/contain no-repeat}
+#play.waiting{background:#1c0f0b url(media/splash.png) center/contain no-repeat}
 #play .ctrl #skip{background:var(--saffron);color:#1c0f0b;border-color:transparent}
 #play video{object-fit:contain;z-index:2}
 #play iframe{z-index:1}
@@ -254,7 +254,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:14px 40px;justify-content:space-bet
 .tabs{display:flex;gap:8px;margin:0 0 18px}
 .tabs button{border:1px solid var(--line);background:transparent;color:var(--mute);padding:8px 16px;border-radius:999px;font:600 14px "Familjen Grotesk",sans-serif;cursor:pointer}
 .tabs button.on{background:var(--saffron);border-color:var(--saffron);color:var(--ink)}
-#over .box{background:var(--ink2)}#over .big{font-family:"Rozha One",serif;font-weight:400}#over h3{font-family:"Rozha One",serif;font-weight:400}#play{--gold2:#d98c14}#lightbox{z-index:80}
+#over .box{background:var(--ink2)}#over .big{font-family:"Rozha One",serif;font-weight:400}#over h3{font-family:"Rozha One",serif;font-weight:400}#play{--gold2:#a3281d}#lightbox{z-index:80}
 
 /* motion + material (after Apple's "Designing Fluid Interfaces"): response on press, springs, translucent chrome */
 .banner{outline:none;touch-action:pan-y}
@@ -285,7 +285,7 @@ body.infeat .bar{background:rgba(236,232,224,.74);border-bottom:1px solid rgba(2
 @media(prefers-reduced-transparency:reduce){.bar,body.infeat .bar{-webkit-backdrop-filter:none;backdrop-filter:none;background:#ece8e0}body:not(.infeat) .bar{background:#1c0f0b}}
 @media(prefers-contrast:more){.banner{background:#fff;box-shadow:0 0 0 2px #17120d}.bn-sub,.bn-k{color:#17120d}.bn-form input{border-color:#17120d}}
 @media(prefers-reduced-motion:reduce){#feature.bye{transform:none}.btn:active{transform:none}}
-.btn{background:linear-gradient(#ffd84d,#f5a81c);color:#17120d}
+.btn{background:linear-gradient(#cf3b2d,#a3281d);color:#f7ecd6}
 .btn.ghost{background:transparent;color:var(--cream)}
 </style>
 </head>
@@ -294,7 +294,7 @@ body.infeat .bar{background:rgba(236,232,224,.74);border-bottom:1px solid rgba(2
 <div class="vig"></div>
 
 <header class="bar">
-  <a class="mark" href="#top">IIM Udaipur Run<small>BALICHA CAMPUS</small></a>
+  <a class="mark" href="#top">Udaipur Runs<small>UTKRISHT · IIM UDAIPUR</small></a>
   <div class="clock" aria-label="In-game clock"><b id="clock">08:55:00</b><span class="mono">QUIZ DOORS CLOSE 09:00</span></div>
   <div class="actions">
     <button class="mbtn" id="musicBtn" aria-label="Music on or off" aria-pressed="false"><svg viewBox="0 0 24 24"><path d="M9 18V6l10-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/><path class="w" d="M21 8c1 1.2 1 3.8 0 5" /></svg></button>
@@ -669,6 +669,8 @@ function startPreload(){
 const slowNet=()=>{const c=navigator.connection;return !!c&&(c.saveData||/^(slow-2g|2g|3g)$/.test(c.effectiveType||""))};
 function maybePrefetch(){if(!slowNet())startPreload()}
 addEventListener("pointerdown",maybePrefetch,{once:true,passive:true});
+$("#fName").addEventListener("focus",maybePrefetch,{once:true});$("#fName").addEventListener("input",maybePrefetch,{once:true});
+setTimeout(maybePrefetch,3500);
 addEventListener("keydown",maybePrefetch,{once:true});
 addEventListener("scroll",()=>{if(scrollY>innerHeight*.5)maybePrefetch()},{once:true,passive:true});
 document.querySelectorAll("#playBtn,#playBtn2,#playBtn3,[data-map]").forEach(b=>b.addEventListener("pointerenter",maybePrefetch,{once:true}));
@@ -678,7 +680,8 @@ fName.value=store.get("iimrun_name","");
 let bannerOff=false;try{bannerOff=sessionStorage.getItem("iimrun_banner_off")==="1"}catch{}
 function closeBanner(){bannerOff=true;try{sessionStorage.setItem("iimrun_banner_off","1")}catch{}feat.style.display="none";document.body.classList.remove("infeat")}
 if(bannerOff)closeBanner();
-$("#bnX").onclick=()=>{clearInterval(slideTimer);feat.classList.add("bye");setTimeout(()=>{closeBanner();scrollTo(0,0)},RM?0:290)};
+let bnClosing=false;function bnClose(e){if(e){e.preventDefault();e.stopPropagation()}if(bnClosing)return;bnClosing=true;clearInterval(slideTimer);feat.classList.add("bye");setTimeout(()=>{closeBanner();scrollTo(0,0)},RM?0:260)}
+$("#bnX").addEventListener("pointerdown",bnClose);$("#bnX").addEventListener("click",bnClose);$("#bnX").addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" ")bnClose(e)});
 function needName(){if(bannerOff)return store.get("iimrun_name","")||"Runner";const n=fName.value.trim();if(n){store.set("iimrun_name",n.slice(0,16));return n.slice(0,16)}
   ban.classList.remove("need");void ban.offsetWidth;ban.classList.add("need");feat.scrollIntoView({behavior:"smooth",block:"start"});setTimeout(()=>fName.focus({preventScroll:true}),450);return""}
 /* ---- motion: a critically damped spring that starts from the live value, keeps the finger's velocity, and can be grabbed mid-flight ---- */
@@ -795,7 +798,7 @@ skipBtn.addEventListener("click",skip);
 skipBtn.addEventListener("pointerup",e=>{e.preventDefault();skip()});
 wake.addEventListener("click",skip);                               // tapping the clip skips too
 addEventListener("keydown",e=>{if(clipOn&&(e.key==="Enter"||e.key===" "||e.key==="Escape")){e.preventDefault();skip()}});
-$("#closeGame").onclick=()=>location.reload();
+$("#closeGame").addEventListener("pointerdown",()=>{try{frame.src="about:blank"}catch(e){}location.reload()});$("#closeGame").onclick=()=>location.reload();
 $("#oClose").onclick=()=>location.reload();                     // frees the game and brings the 3D scene back
 addEventListener("keydown",e=>{if(e.key==="Escape"&&lb.classList.contains("open"))lb.classList.remove("open")});
 for(const id of ["#playBtn","#playBtn2","#playBtn3"])$(id).onclick=()=>openGame();
