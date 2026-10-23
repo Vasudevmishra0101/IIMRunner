@@ -1,6 +1,6 @@
 # Map data licence
 
-The Fateh Sagar map in *Udaipur Runs* is built from **OpenStreetMap** data.
+The Fateh Sagar map in *College Runs* is built from **OpenStreetMap** data.
 
 Contains data (c) OpenStreetMap contributors, available under the
 [Open Database Licence (ODbL) 1.0](https://opendatacommons.org/licenses/odbl/1-0/).
@@ -19,7 +19,7 @@ credit OpenStreetMap and its contributors, keep this notice, and offer any adapt
 
 ## What is not covered
 
-The game's code, graphics, music and the Utkrisht / IIM Udaipur names, logos and posters are **not** under the ODbL and are
+The game's code, graphics, music, names, logos and posters are **not** under the ODbL and are
 not licensed by this file. The ODbL covers the map data only, not the game built from it (a "produced work").
 
 The game shows the credit "road and lake shape from OpenStreetMap, (c) OpenStreetMap contributors (ODbL)" in its menu,

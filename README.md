@@ -1,4 +1,4 @@
-# IIM Udaipur Run
+# College Runs
 
 Outrun the leopard. Survive campus.
 

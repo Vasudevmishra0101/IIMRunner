@@ -3,17 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>IIM Udaipur Run – Outrun the leopard. Survive campus.</title>
-<meta name="description" content="A free 3D endless runner through the IIM Udaipur campus. Late for the 9 AM quiz, a leopard on your tail. Play in your browser.">
+<title>College Runs – Outrun the leopard. Survive campus.</title>
+<meta name="description" content="A free 3D endless runner through the college campus. Late for the 9 AM quiz, a leopard on your tail. Play in your browser.">
 <meta name="theme-color" content="#0b1020">
-<!-- Link previews: set SITE_URL in the CONFIG below and replace the two absolute URLs here once you know the final address -->
 <meta property="og:type" content="website">
-<meta property="og:title" content="IIM Udaipur Run – Outrun the leopard. Survive campus.">
+<meta property="og:title" content="College Runs – Outrun the leopard. Survive campus.">
 <meta property="og:description" content="Late for the 9 AM quiz, a leopard on your tail. Free 3D campus runner, plays in your browser.">
 <meta property="og:image" content="https://vasudevmishra0101.github.io/IIMRunner/media/og.jpg">
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="IIM Udaipur Run">
+<meta name="twitter:title" content="College Runs">
 <meta name="twitter:description" content="Outrun the leopard. Survive campus.">
 <meta name="twitter:image" content="https://vasudevmishra0101.github.io/IIMRunner/media/og.jpg">
 <link rel="icon" href="game/index.icon.png">
@@ -34,7 +33,7 @@ h1,h2,h3{font-family:"Rozha One",Georgia,serif;font-weight:400;margin:0;letter-s
 :focus-visible{outline:3px solid var(--cream);outline-offset:3px}
 
 
-/* top banner: Udaipur Runs by Utkrisht (a wide card, warm greige with black type and a gold edge) */
+/* top banner: College Runs (a wide card, warm greige with black type and a gold edge) */
 .lightzone,.after{--cream:#17120d;--mute:#5f584d;--line:rgba(23,18,13,.2);--ink:#ece8e0;--ink2:#e2ddd3;--card:rgba(23,18,13,.05);--saffron:#a3281d;--sand:#8a2a1e;--gold:#a3281d;color:var(--cream)}
 .lightzone input,.lightzone textarea,.after input,.after textarea{background:#fff}
 .after .facts div{background:rgba(23,18,13,.04)}
@@ -297,7 +296,7 @@ body.infeat .bar{background:rgba(236,232,224,.74);border-bottom:1px solid rgba(2
 <div class="vig"></div>
 
 <header class="bar">
-  <a class="mark" href="#top">Udaipur Runs<small>UTKRISHT · IIM UDAIPUR</small></a>
+  <a class="mark" href="#top">College Runs<small>CAMPUS RUNNER</small></a>
   <div class="clock" aria-label="In-game clock"><b id="clock">08:55:00</b><span class="mono">QUIZ DOORS CLOSE 09:00</span></div>
   <div class="actions">
     <button class="mbtn" id="musicBtn" aria-label="Music on or off" aria-pressed="false"><svg viewBox="0 0 24 24"><path d="M9 18V6l10-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/><path class="w" d="M21 8c1 1.2 1 3.8 0 5" /></svg></button>
@@ -308,34 +307,23 @@ body.infeat .bar{background:rgba(236,232,224,.74);border-bottom:1px solid rgba(2
 <div class="coinsbox mono"><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="7"/></svg><span id="coinsN">0</span> coins</div>
 
 <main id="top">
-<section class="topband lightzone" id="feature" aria-label="Udaipur Runs by Utkrisht">
+<section class="topband lightzone" id="feature" aria-label="College Runs">
   <div class="wrap">
-    <div class="dots tabs" id="featDots" role="tablist" aria-label="Featured maps"><button class="on" role="tab">Fateh Sagar Lake Road</button><button role="tab">IIM Udaipur Campus</button></div>
-    <div class="banner" id="banner" tabindex="0" aria-roledescription="carousel" aria-label="Featured maps, swipe or use the arrow keys">
+    <div class="banner" id="banner" tabindex="0" aria-label="College Runs">
       <button class="bn-x" id="bnX" aria-label="Close this banner" title="Close">&times;</button>
       <div class="bn-track" id="bnTrack">
-        <article class="bn-slide" aria-label="Fateh Sagar Lake Road">
+        <article class="bn-slide" aria-label="Campus Run" style="grid-template-columns:1fr">
           <div class="bn-copy">
-            <div class="bn-k">Utkrisht · Sports Fest of IIM Udaipur</div>
-            <h2>Udaipur Runs<em>Fateh Sagar Lake Road</em></h2>
-            <p class="bn-sub">Run the real lake road at sunset. Hosted by Utkrisht, presented by IIM Udaipur.</p>
+            <div class="bn-k">College Runs · Campus Edition</div>
+            <h2>College Runs<em>Outrun the leopard. Survive campus.</em></h2>
+            <p class="bn-sub">Late for the 9 AM quiz. Run the campus loop. Don't get caught.</p>
+            <div class="bn-form" style="margin-top:18px">
+              <button class="btn" id="featPlayBtn" data-track="play_click_feature"><svg viewBox="0 0 14 14"><path d="M2 1l11 6-11 6z"/></svg>Play now</button>
+            </div>
           </div>
-          <div class="bn-art"><img src="media/udaipur-runs.jpg" alt="" width="1600" height="900" draggable="false"><span class="bn-chip">New map</span></div>
-        </article>
-        <article class="bn-slide" aria-label="IIM Udaipur Campus">
-          <div class="bn-copy">
-            <div class="bn-k">Map 01 · Balicha</div>
-            <h2>Udaipur Runs<em>IIM Udaipur Campus</em></h2>
-            <p class="bn-sub">The original run: the main gate, the ghats, the courtyard and the skywalk at golden hour.</p>
-          </div>
-          <div class="bn-art"><img src="media/shot1.jpg" alt="" width="1280" height="720" draggable="false" loading="lazy"><span class="bn-chip">Campus</span></div>
+          <div class="bn-art"><img src="media/shot1.jpg" alt="" width="1280" height="720" draggable="false"><span class="bn-chip">Campus</span></div>
         </article>
       </div>
-      <form class="bn-form" id="featForm" autocomplete="off">
-        <label class="bn-lab" for="fName" style="flex-basis:100%">Enter your name to run</label>
-        <input id="fName" maxlength="16" placeholder="Your name" autocomplete="nickname" required>
-        <button class="btn" type="submit" data-track="play_click_feature"><svg viewBox="0 0 14 14"><path d="M2 1l11 6-11 6z"/></svg>Click to play</button>
-      </form>
     </div>
   </div>
 </section>
@@ -345,16 +333,16 @@ body.infeat .bar{background:rgba(236,232,224,.74);border-bottom:1px solid rgba(2
   <section class="chap hero in">
     <div class="wrap"><div class="copy">
       <div id="challenge"></div>
-      <a class="newchip" href="#maps"><b>New map</b> Fateh Sagar Lake Road</a>
+      <a class="newchip" href="#maps"><b>Maps</b> Campus · Lake Road</a>
       <div class="mono">08:55 &nbsp;·&nbsp; Hostel Block C &nbsp;·&nbsp; Monday</div>
       <h1>Outrun<br>the <em>leopard.</em></h1>
-      <p class="sub">Late for the 9 AM quiz. Run the real IIM Udaipur campus. Survive it.</p>
+      <p class="sub">Late for the 9 AM quiz. Run the real campus. Survive it.</p>
       <div class="cta">
         <button class="btn big" id="playBtn2" data-track="play_click_hero2"><svg viewBox="0 0 14 14"><path d="M2 1l11 6-11 6z"/></svg>Play now, it's free</button>
         <a class="btn ghost" href="#how">How it works</a>
       </div>
       <p class="note">Plays in your browser, nothing to install. Chrome and a desktop give the best graphics. Phones work too (about 14 MB on the first load, so Wi-Fi is best).</p>
-      <div class="proof mono"><span>Built by an IIM Udaipur student</span><span id="plays" hidden><b id="playsN">0</b> plays</span></div>
+      <div class="proof mono"><span>Built by a college student</span><span id="plays" hidden><b id="playsN">0</b> plays</span></div>
     </div>
     <div class="scroll mono">Scroll to run<i></i></div></div>
   </section>
@@ -418,62 +406,24 @@ body.infeat .bar{background:rgba(236,232,224,.74);border-bottom:1px solid rgba(2
 
 <div class="after">
   <section class="s" id="maps"><div class="wrap">
-    <div class="mono" style="color:var(--saffron);margin-bottom:10px">Introducing</div>
-    <h2>Udaipur Runs.</h2>
-    <p class="lead">One game, now two places in Udaipur. Pick a map and run. Each map keeps its own best score and its own leaderboard.</p>
+    <div class="mono" style="color:var(--saffron);margin-bottom:10px">Choose your map</div>
+    <h2>College Runs.</h2>
+    <p class="lead">One game, two tracks. Pick a map and run. Each map keeps its own best score.</p>
     <div class="maps">
       <article class="mapcard">
-        <img loading="lazy" src="media/shot1.jpg" alt="Running through the IIM Udaipur main gate at sunset" width="1280" height="720">
+        <img loading="lazy" src="media/shot1.jpg" alt="Running through the campus main gate at sunset" width="1280" height="720">
         <div class="mc"><div class="mono" style="color:var(--saffron)">Map 01</div>
-          <h3>IIM Udaipur Campus</h3>
-          <p>Balicha at golden hour. The main gate, the lakefront ghats, the courtyard and the skywalk, traced from the campus map.</p>
+          <h3>College Campus</h3>
+          <p>The main gate, the lakefront ghats, the courtyard and the skywalk, traced from the campus map.</p>
           <button class="btn" data-map="campus" data-track="map_play_campus"><svg viewBox="0 0 14 14"><path d="M2 1l11 6-11 6z"/></svg>Play this map</button></div>
       </article>
       <article class="mapcard new">
-        <img loading="lazy" src="media/lake1.jpg" alt="Running along the Fateh Sagar lake road, the lake behind a white balustrade" width="1280" height="720">
+        <img loading="lazy" src="media/lake1.jpg" alt="Running along the Fateh Sagar lake road" width="1280" height="720">
         <div class="mc"><span class="tag">New</span><div class="mono" style="color:var(--saffron)">Map 02</div>
           <h3>Fateh Sagar Lake Road</h3>
           <p>The real road around Fateh Sagar, traced from OpenStreetMap: about 4.6 km of curves along the shore, the straight Pal embankment with its street-food stalls, and the Aravalli ridges across the water.</p>
           <button class="btn" data-map="fatehsagar" data-track="map_play_fatehsagar"><svg viewBox="0 0 14 14"><path d="M2 1l11 6-11 6z"/></svg>Play this map</button></div>
       </article>
-    </div>
-
-    <div class="lake" id="fatehsagar">
-      <div>
-        <div class="mono" style="color:var(--saffron);margin-bottom:10px">The new map</div>
-        <h3>What you run past on the lake road</h3>
-        <p class="lead" style="margin:0">The road is the real peripheral road of Fateh Sagar, followed all the way round. The lake, its islands and the hill are in their real places. The names and facts also pop up in the game as you reach each stop.</p>
-        <ol class="stops">
-          <li><div><b>Moti Magri</b><span>You start by the Pearl Hill, with the bronze Maharana Pratap on his horse Chetak on top, remembering the Battle of Haldighati.</span></div></li>
-          <li><div><b>The dam, or Pal road</b><span>The east embankment of the lake, also called the Pal, the Drive or Connaught Bund. About 800 m of dead-straight road with the lake on one side. The dam holds the lake in on its eastern side.</span></div></li>
-          <li><div><b>Fateh Sagar Pal</b><span>The most popular promenade at the lake: benches, street food stalls, boat rides and horses, with wide open views over the water.</span></div></li>
-          <li><div><b>The north shore</b><span>The road bends along the north-east shore under the hills. Fateh Sagar was first built in 1678 by Maharana Jai Singh; floods later washed the bund away and in 1889 Maharana Fateh Singh rebuilt it as the Connaught Dam.</span></div></li>
-          <li><div><b>Udaipur Solar Observatory</b><span>On a small island in the middle of the lake. It was set up in 1976 and is run by the Physical Research Laboratory. The surrounding water steadies the air, which helps it see the Sun clearly.</span></div></li>
-          <li><div><b>Rani Road</b><span>The road along the south shore, one of the roads of the circuit around the lake, with the whole lake and its islands open to one side.</span></div></li>
-          <li><div><b>Nehru Park</b><span>The largest of the lake's three islands, seen across the water as you run the south shore. It has a boat-shaped restaurant and a small zoo, and is reached by boat.</span></div></li>
-          <li><div><b>Fateh Sagar Road</b><span>The winding road up the south-east shore brings you back to Moti Magri and the start of the dam, and the lap begins again.</span></div></li>
-        </ol>
-      </div>
-      <div>
-        <div class="facts">
-          <div><b>1678</b><span>first built by Maharana Jai Singh</span></div>
-          <div><b>1889</b><span>enlarged: the Connaught Dam</span></div>
-          <div><b>4 km&sup2;</b><span>surface area</span></div>
-          <div><b>2.4 km</b><span>maximum length</span></div>
-          <div><b>1.6 km</b><span>maximum width</span></div>
-          <div><b>8.5 km</b><span>shore length</span></div>
-          <div><b>5.4 m</b><span>average depth (13.4 m max)</span></div>
-          <div><b>3</b><span>islands in the lake</span></div>
-        </div>
-        <div class="lakeshots" id="lakeshots">
-          <button data-i="0"><img loading="lazy" src="media/lake1.jpg" alt="The lake road with the balustrade and the blue lake" width="1280" height="720"></button>
-          <button data-i="1"><img loading="lazy" src="media/lake2.jpg" alt="Nehru Park island and the chhatri beside the road" width="1280" height="720"></button>
-          <button data-i="2"><img loading="lazy" src="media/lake3.jpg" alt="The Drive with its stone wall" width="1280" height="720"></button>
-        </div>
-        <p class="srcs"><b>About the road.</b> The full circuit of the lake is driven along Moti Magri Road, Fateh Sagar Drive, Rani Road and the winding road on the eastern shore, which has a protective stone wall. I could not find an official length for the road around the lake. The shore is about 8.5 km, so a full circuit is of that order. The road in the game follows the real one and is drawn at 60% of its true size, so one lap is about 4.6 km.</p>
-        <p class="srcs">Sources: <a href="https://en.wikipedia.org/wiki/Fateh_Sagar_Lake" rel="noopener">Wikipedia, Fateh Sagar Lake</a> &middot; <a href="https://en.wikipedia.org/wiki/Moti_Magri" rel="noopener">Moti Magri</a> &middot; <a href="https://en.wikipedia.org/wiki/Udaipur_Solar_Observatory" rel="noopener">Udaipur Solar Observatory</a> &middot; <a href="https://www.holidify.com/places/udaipur/fateh-sagar-lake-sightseeing-3838.html" rel="noopener">Holidify</a> &middot; <a href="https://www.rajasthantourplanner.com/blog/fateh-sagar-lake-udaipur-a-tranquil-escape-in-rajasthan-lake-city/" rel="noopener">Rajasthan Tour Planner</a>. The shape of the road, the lake and its islands come from <a href="https://www.openstreetmap.org/copyright" rel="noopener">OpenStreetMap</a> data, &copy; OpenStreetMap contributors, under the <a href="https://opendatacommons.org/licenses/odbl/1-0/" rel="noopener">ODbL</a>; the derived map data is <a href="data/route_fatehsagar.json">available here</a> under the same licence (<a href="https://github.com/Vasudevmishra0101/IIMRunner/blob/main/DATA-LICENSE.md" rel="noopener">details</a>). The look of the road is based on the &ldquo;4K Drive in Udaipur: Fateh Sagar Lake&rdquo; video by City Vibes on <a href="https://youtu.be/TqRWKCxaIq4" rel="noopener">YouTube</a>. Unofficial fan project.</p>
-        <button class="btn" data-map="fatehsagar" data-track="map_play_fatehsagar2" style="margin-top:8px"><svg viewBox="0 0 14 14"><path d="M2 1l11 6-11 6z"/></svg>Run the lake road</button>
-      </div>
     </div>
   </div></section>
 
@@ -491,7 +441,7 @@ body.infeat .bar{background:rgba(236,232,224,.74);border-bottom:1px solid rgba(2
   <section class="s alt" id="leaderboard"><div class="wrap">
     <div class="mono" style="color:var(--saffron);margin-bottom:10px">Top ten</div>
     <h2>Leaderboard</h2><p class="lead" id="lbLead">Top 10 scores on this device.</p>
-    <div class="tabs" id="boardTabs"><button data-board="campus" class="on">IIM Udaipur Campus</button><button data-board="fatehsagar">Fateh Sagar Lake Road</button></div>
+    <div class="tabs" id="boardTabs"><button data-board="campus" class="on">College Campus</button><button data-board="fatehsagar">Fateh Sagar Lake Road</button></div>
     <div class="lb">
       <ol id="board"></ol>
       <div>
@@ -522,14 +472,14 @@ body.infeat .bar{background:rgba(236,232,224,.74);border-bottom:1px solid rgba(2
 </main>
 
 <footer><div class="wrap">
-  <div>&copy; 2026 Vasudev. All rights reserved.<br>Created by <b>Vasudev</b> &nbsp;·&nbsp; Built by an IIM Udaipur student<br>Made with <a href="https://godotengine.org" rel="noopener">Godot</a>. Unofficial fan project, not affiliated with IIM Udaipur.</div>
+  <div>&copy; 2026 Vasudev. All rights reserved.<br>Created by <b>Vasudev</b> &nbsp;·&nbsp; Built by a college student<br>Made with <a href="https://godotengine.org" rel="noopener">Godot</a>. Unofficial fan project.</div>
   <div>Credits: 3D art, textures and sound effects are generated in code for this game.<br>Music: &ldquo;Chai Run Groove&rdquo; by PetalLog.</div>
 </div></footer>
 
 <div id="lightbox" role="dialog" aria-label="Screenshot viewer"><button class="x" aria-label="Close">×</button><button class="nv p" aria-label="Previous">‹</button><img alt=""><button class="nv n" aria-label="Next">›</button></div>
 
 <div id="play" role="dialog" aria-label="Game" aria-modal="true">
-  <iframe id="game" title="IIM Udaipur Run" allow="autoplay; fullscreen; gamepad" allowfullscreen></iframe>
+  <iframe id="game" title="College Runs" allow="autoplay; fullscreen; gamepad" allowfullscreen></iframe>
   <video id="wake" playsinline preload="none" poster="media/hero-poster.jpg"></video>
   <div class="status" id="status"></div>
   <div class="bar" id="bar"><i></i></div>
@@ -568,7 +518,7 @@ function track(name,props){
 document.addEventListener("click",e=>{const t=e.target.closest("[data-track]");if(t)track(t.dataset.track)});
 
 /* ---- maps and leaderboards (each map has its own) ---- */
-const MAPS={campus:"IIM Udaipur Campus",fatehsagar:"Fateh Sagar Lake Road"};
+const MAPS={campus:"College Campus",fatehsagar:"Fateh Sagar Lake Road"};
 let gameMap=store.get("iimrun_map","campus");if(!MAPS[gameMap])gameMap="campus";
 let boardMap=gameMap;
 const boardKey=m=>m==="campus"?"iimrun_board":"iimrun_board_"+m;
@@ -604,7 +554,7 @@ function shareLinks(score,map){
   map=map||gameMap;
   const name=store.get("iimrun_name","");
   const link=site()+(score?`?challenge=${encodeURIComponent(name||"A batchmate")}&score=${score}&map=${map}`:(map==="campus"?"":`?map=${map}`));
-  const text=score?`My score: ${score} on Udaipur Runs, ${MAPS[map]}. Outran the leopard. Can you beat it?`:`Can you outrun the leopard in Udaipur? Udaipur Runs: ${MAPS[map]}`;
+  const text=score?`My score: ${score} on College Runs, ${MAPS[map]}. Outran the leopard. Can you beat it?`:`Can you outrun the leopard? College Runs: ${MAPS[map]}`;
   const e=encodeURIComponent;
   return [
     ["wa","WhatsApp",`https://wa.me/?text=${e(text+" "+link)}`],
@@ -685,8 +635,7 @@ function closeBanner(){bannerOff=true;try{sessionStorage.setItem("iimrun_banner_
 if(bannerOff)closeBanner();
 let bnClosing=false;function bnClose(e){if(e){e.preventDefault();e.stopPropagation()}if(bnClosing)return;bnClosing=true;clearInterval(slideTimer);feat.classList.add("bye");setTimeout(()=>{closeBanner();scrollTo(0,0)},RM?0:260)}
 $("#bnX").addEventListener("pointerdown",bnClose);$("#bnX").addEventListener("click",bnClose);$("#bnX").addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" ")bnClose(e)});
-function needName(){if(bannerOff)return store.get("iimrun_name","")||"Runner";const n=fName.value.trim();if(n){store.set("iimrun_name",n.slice(0,16));return n.slice(0,16)}
-  ban.classList.remove("need");void ban.offsetWidth;ban.classList.add("need");feat.scrollIntoView({behavior:"smooth",block:"start"});setTimeout(()=>fName.focus({preventScroll:true}),450);return""}
+function needName(){return store.get("iimrun_name","")||"Runner"}
 /* ---- motion: a critically damped spring that starts from the live value, keeps the finger's velocity, and can be grabbed mid-flight ---- */
 const RM=matchMedia("(prefers-reduced-motion: reduce)").matches;
 function Spring(write,o={}){
@@ -709,39 +658,9 @@ const rubber=(over,dim,c=.55)=>over*dim*c/(dim+c*Math.abs(over));
 function velocityOf(hist){const n=hist.length;if(n<2)return 0;const b=hist[n-1];let a=hist[0];
   for(const h of hist)if(b.t-h.t<=100){a=h;break}const dt=(b.t-a.t)/1000;return dt>0?(b.x-a.x)/dt:0}
 
-/* ---- the banner: swipe it, flick it, grab it while it moves ---- */
-const bnT=$("#bnTrack"),bnSlides=[...bnT.children],bnDots=[...document.querySelectorAll("#featDots button")];
-let bnIdx=0,slideTimer=0,bnW=ban.clientWidth;
-const trackSpring=Spring(x=>{bnT.style.transform=`translate3d(${x}px,0,0)`});
-function bnSet(i){bnIdx=i;bnDots.forEach((b,j)=>b.classList.toggle("on",j===i));
-  bnSlides.forEach((sl,j)=>{sl.setAttribute("aria-hidden",j===i?"false":"true")});
-  const img=bnSlides[i].querySelector("img");if(img&&img.loading==="lazy")img.loading="eager"}
-function bnGo(i,vel){i=Math.max(0,Math.min(bnSlides.length-1,i));bnSet(i);trackSpring.to(-i*bnW,vel)}
-addEventListener("resize",()=>{bnW=ban.clientWidth;trackSpring.set(-bnIdx*bnW)});
-bnDots.forEach((b,j)=>b.onclick=()=>{clearInterval(slideTimer);bnGo(j)});
-let bnDrag=null;
-bnT.addEventListener("pointerdown",e=>{if(e.button>0)return;
-  bnDrag={id:e.pointerId,x0:e.clientX,y0:e.clientY,base:trackSpring.x,hist:[{x:e.clientX,t:e.timeStamp}],on:false};clearInterval(slideTimer)});
-bnT.addEventListener("pointermove",e=>{if(!bnDrag||e.pointerId!==bnDrag.id)return;
-  const dx=e.clientX-bnDrag.x0,dy=e.clientY-bnDrag.y0;
-  if(!bnDrag.on){if(Math.abs(dx)<10&&Math.abs(dy)<10)return;               // hysteresis: wait for a clear intent
-    if(Math.abs(dy)>Math.abs(dx)){bnDrag=null;return}                        // vertical: leave it to the page scroll
-    bnDrag.on=true;bnT.setPointerCapture(e.pointerId);bnT.classList.add("drag")}
-  bnDrag.hist.push({x:e.clientX,t:e.timeStamp});if(bnDrag.hist.length>8)bnDrag.hist.shift();
-  let x=bnDrag.base+dx;const lo=-(bnSlides.length-1)*bnW;
-  if(x>0)x=rubber(x,bnW);else if(x<lo)x=lo+rubber(x-lo,bnW);                   // soft edges
-  trackSpring.set(x)});
-function bnEnd(e){if(!bnDrag||e.pointerId!==bnDrag.id)return;const d=bnDrag;bnDrag=null;bnT.classList.remove("drag");
-  if(!d.on)return;const v=velocityOf(d.hist);                               // px/s, signed
-  const rest=trackSpring.x+projectRest(v);                                      // where it is headed, not where it is
-  bnGo(Math.round(-rest/bnW),v)}
-bnT.addEventListener("pointerup",bnEnd);bnT.addEventListener("pointercancel",bnEnd);
-bnT.addEventListener("click",e=>{if(Math.abs(trackSpring.x+bnIdx*bnW)>3)e.preventDefault()});
-ban.addEventListener("keydown",e=>{if(e.target!==ban)return;if(e.key==="ArrowRight"){clearInterval(slideTimer);bnGo(bnIdx+1)}if(e.key==="ArrowLeft"){clearInterval(slideTimer);bnGo(bnIdx-1)}});
-bnSet(0);slideTimer=setInterval(()=>bnGo((bnIdx+1)%bnSlides.length),7000);
-ban.addEventListener("pointerenter",()=>clearInterval(slideTimer));
-const SLIDE_MAPS=["fatehsagar","campus"];
-$("#featForm").addEventListener("submit",e=>{e.preventDefault();openGame(SLIDE_MAPS[bnIdx])});
+/* ---- the banner: single slide, just wire the play button ---- */
+const bnT=$("#bnTrack"),bnSlides=[...bnT.children];
+$("#featPlayBtn").addEventListener("click",()=>{bnClose();openGame("campus")});
 
 /* ---- the "Run over" box is a sheet: it springs up, and you can bnDrag it down to leave ---- */
 const overEl=$("#over"),overBox=overEl.querySelector(".box");
@@ -767,13 +686,7 @@ function openGame(map){
   track("play_start");store.set("iimrun_plays",store.get("iimrun_plays",0)+1);
   if(CONFIG.API)fetch(CONFIG.API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({play:true}),keepalive:true}).catch(()=>{});
   startPreload();
-  let seen=false;try{seen=!!sessionStorage.getItem("iimrun_seen_wake")}catch{}
-  if(seen){bootGame();return}
-  loadWake();clipOn=true;wake.style.display="block";skipBtn.style.display="";
-  wake.currentTime=0;
-  const p=wake.play();
-  if(p&&p.catch)p.catch(()=>{wake.muted=true;const q=wake.play();if(q&&q.catch)q.catch(bootGame)});   // blocked or unplayable: go straight to the game
-  watchdog();
+  bootGame();
 }
 /* if the clip never gets going (bad network, unsupported), do not leave the visitor staring at it */
 let lastT=-1,stuck=0,dog=0;
@@ -835,7 +748,7 @@ addEventListener("keydown",e=>{if(!lb.classList.contains("open"))return;if(e.key
 /* ---- feedback ---- */
 $("#fb").onsubmit=async e=>{e.preventDefault();const f=new FormData(e.target);
   if(CONFIG.FORM){try{await fetch(CONFIG.FORM,{method:"POST",body:f,headers:{Accept:"application/json"}});$("#thanks").style.display="block";e.target.reset()}catch{alert("Couldn't send. Try again later.")}}
-  else{location.href=`mailto:${CONFIG.EMAIL}?subject=${encodeURIComponent("IIM Udaipur Run feedback")}&body=${encodeURIComponent(f.get("message")+"\n\nFrom: "+(f.get("email")||""))}`}};
+  else{location.href=`mailto:${CONFIG.EMAIL}?subject=${encodeURIComponent("College Runs feedback")}&body=${encodeURIComponent(f.get("message")+"\n\nFrom: "+(f.get("email")||""))}`}};
 
 /* ---- landing-page music: starts on the first tap/click (browsers need one), button toggles, pauses while the game is open ---- */
 const music=new Audio("media/music.mp3");music.loop=true;music.preload="none";music.volume=0;
@@ -975,7 +888,7 @@ function gate(){
   const c=document.createElement("canvas");c.width=1024;c.height=256;const cx=c.getContext("2d");
   const tex=new THREE.CanvasTexture(c);
   const paint=()=>{cx.fillStyle="#d8b27c";cx.fillRect(0,0,1024,256);cx.fillStyle="rgba(0,0,0,.08)";for(let i=0;i<600;i++)cx.fillRect(rnd()*1024,rnd()*256,3,2);
-    cx.fillStyle="#4a2615";cx.textAlign="center";cx.textBaseline="middle";cx.font="132px 'Rozha One',serif";cx.fillText("IIM UDAIPUR",512,138);tex.needsUpdate=true};
+    cx.fillStyle="#4a2615";cx.textAlign="center";cx.textBaseline="middle";cx.font="132px 'Rozha One',serif";cx.fillText("COLLEGE RUNS",512,138);tex.needsUpdate=true};
   paint();if(document.fonts&&document.fonts.load)document.fonts.load("64px 'Rozha One'").then(paint);
   const front=new THREE.MeshLambertMaterial({map:tex});
   const beam=new THREE.Mesh(new THREE.BoxGeometry(14.6,3,2.4),[mats.curb,mats.curb,mats.curb,mats.curb,front,mats.curb]);beam.position.set(0,11.2,0);g.add(beam);
