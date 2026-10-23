@@ -203,7 +203,10 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:14px 40px;justify-content:space-bet
 #play.open{display:block}
 #play iframe,#play video{position:absolute;inset:0;width:100%;height:100%;border:0;background:#000}
 #play iframe{background:transparent}
-#play.waiting{background:#1c0f0b url(media/splash.png) center/contain no-repeat}
+#play.waiting{background:#000;display:flex;align-items:center;justify-content:center}
+#play.waiting .ad-splash-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;height:100%;position:relative;background:#0a0503}
+#play.waiting .ad-splash-wrap img{max-width:100%;max-height:100%;object-fit:contain;box-shadow:0 0 50px rgba(0,0,0,0.8)}
+#play.waiting .ad-tag{position:absolute;top:20px;left:24px;background:rgba(0,0,0,0.7);color:var(--saffron);padding:4px 14px;border-radius:20px;font:700 12px "Spline Sans Mono",monospace;letter-spacing:0.12em;text-transform:uppercase;border:1px solid rgba(255,255,255,0.15)}
 #play .ctrl #skip{background:var(--saffron);color:#1c0f0b;border-color:transparent}
 #play video{object-fit:contain;z-index:2}
 #play iframe{z-index:1}
@@ -530,6 +533,10 @@ body.infeat .bar{background:rgba(236,232,224,.74);border-bottom:1px solid rgba(2
 
 <div id="play" role="dialog" aria-label="Game" aria-modal="true">
   <iframe id="game" title="College Runs" allow="autoplay; fullscreen; gamepad" allowfullscreen></iframe>
+  <div class="ad-splash-wrap" id="adSplash" style="display:none">
+    <span class="ad-tag">Official Sponsor</span>
+    <img src="media/ad_splash.jpg" alt="Featured Run" draggable="false">
+  </div>
   <video id="wake" playsinline preload="none" poster="media/hero-poster.jpg"></video>
   <div class="status" id="status"></div>
   <div class="bar" id="bar"><i></i></div>
@@ -657,10 +664,10 @@ async function loadPlays(){
       the clip stutter and Skip unresponsive.
    3. When the clip ends or is skipped, the game boots (the iframe shows the branded splash while it does).
    Closing the game reloads the page: that frees everything and brings the 3D scene back. */
-const play=$("#play"),wake=$("#wake"),frame=$("#game"),bar=$("#bar"),status=$("#status"),skipBtn=$("#skip");
+const play=$("#play"),wake=$("#wake"),frame=$("#game"),bar=$("#bar"),status=$("#status"),skipBtn=$("#skip"),adSplash=$("#adSplash");
 let booting=false,clipOn=false,paintT=0;
 function loadWake(){if(!wake.getAttribute("src")){wake.src="media/wake.mp4";wake.load()}}
-addEventListener("load",()=>setTimeout(loadWake,2500));   // after the 3D page has settled
+addEventListener("load",()=>startPreload());
 
 /* The game's files are fetched in parallel into the browser cache. This starts quietly as soon as a visitor shows
    interest (first tap, scroll or hover on Play), so most of it is here by the time they press Play. Skipped on data
@@ -786,14 +793,7 @@ function openGame(map){
   $("#over").classList.remove("open");
   track("play_start");store.set("iimrun_plays",store.get("iimrun_plays",0)+1);
   if(CONFIG.API)fetch(CONFIG.API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({play:true}),keepalive:true}).catch(()=>{});
-  startPreload();
-  let seen=false;try{seen=!!sessionStorage.getItem("iimrun_seen_wake")}catch{}
-  if(seen){bootGame();return}
-  loadWake();clipOn=true;wake.style.display="block";skipBtn.style.display="";
-  wake.currentTime=0;
-  const p=wake.play();
-  if(p&&p.catch)p.catch(()=>{wake.muted=true;const q=wake.play();if(q&&q.catch)q.catch(bootGame)});   // blocked or unplayable: go straight to the game
-  watchdog();
+  bootGame();
 }
 /* if the clip never gets going (bad network, unsupported), do not leave the visitor staring at it */
 let lastT=-1,stuck=0,dog=0;
@@ -807,14 +807,18 @@ wake.addEventListener("error",()=>{if(clipOn)bootGame()});
 
 async function bootGame(){
   if(booting)return;booting=true;clipOn=false;clearInterval(dog);
-  try{sessionStorage.setItem("iimrun_seen_wake","1")}catch{}
   wake.pause();wake.style.display="none";skipBtn.style.display="none";
-  play.classList.add("waiting");                                   // shows the splash until the game's own page paints
+  play.classList.add("waiting");
+  if(adSplash)adSplash.style.display="flex";
   status.textContent="Loading game…";bar.style.display="block";
-  await startPreload();
-  bar.firstElementChild.style.width="100%";status.textContent="Starting…";
-  frame.onload=()=>{play.classList.remove("waiting");status.textContent="";bar.style.display="none";frame.focus()};
   frame.src="game/index.html?map="+gameMap+"&name="+encodeURIComponent(store.get("iimrun_name",""));
+  frame.onload=()=>{
+    setTimeout(()=>{
+      play.classList.remove("waiting");
+      if(adSplash)adSplash.style.display="none";
+      status.textContent="";bar.style.display="none";frame.focus();
+    }, 1200);
+  };
 }
 function skip(){if(!clipOn)return;track("intro_skip");bootGame()}
 skipBtn.addEventListener("click",skip);
