@@ -522,8 +522,8 @@ body.infeat .bar{background:rgba(236,232,224,.74);border-bottom:1px solid rgba(2
 </main>
 
 <footer><div class="wrap">
-  <div>&copy; 2026 Vasudev. All rights reserved.<br>Created by <b>Vasudev</b> &nbsp;·&nbsp; Built by a college student<br>Made with <a href="https://godotengine.org" rel="noopener">Godot</a>. Unofficial fan project.</div>
-  <div>Credits: 3D art, textures and sound effects are generated in code for this game.<br>Music: &ldquo;Chai Run Groove&rdquo; by PetalLog.</div>
+  <div>&copy; 2026 Vasudev. All rights reserved.<br>Created by <b>Vasudev</b> &nbsp;·&nbsp; Built by a college student<br>Made with <a href="https://godotengine.org" rel="noopener" target="_blank">Godot</a>. Unofficial independent fan tribute. Not affiliated with, sponsored by, or endorsed by any educational institution.<br><br><b>Privacy:</b> Player nicknames, best scores, and sound preferences are stored purely locally in your browser cache (Local Storage). No personal identifying information is tracked, collected, or shared with third parties.</div>
+  <div>Credits: 3D art, procedural textures, and audio synthesis generated for this game.<br>Music: &ldquo;Chai Run Groove&rdquo; by PetalLog.<br>Map Data: &copy; <a href="https://www.openstreetmap.org/copyright" rel="noopener" target="_blank">OpenStreetMap</a> contributors, licensed under the <a href="DATA-LICENSE.md" target="_blank">ODbL 1.0</a>.</div>
 </div></footer>
 
 <div id="lightbox" role="dialog" aria-label="Screenshot viewer"><button class="x" aria-label="Close">×</button><button class="nv p" aria-label="Previous">‹</button><img alt=""><button class="nv n" aria-label="Next">›</button></div>
@@ -542,7 +542,8 @@ body.infeat .bar{background:rgba(236,232,224,.74);border-bottom:1px solid rgba(2
   </div></div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="js/three.min.js"></script>
+<script>if(typeof THREE==="undefined"){document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"><\/script>')}</script>
 <script>
 /* ---- CONFIG: fill these in when you deploy ---------------------------------
    SITE_URL   : final public address, used in share links ("" = use the current page)
