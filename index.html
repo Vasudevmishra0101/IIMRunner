@@ -17,6 +17,9 @@
 <meta name="twitter:description" content="Outrun the leopard. Survive campus.">
 <meta name="twitter:image" content="https://vasudevmishra0101.github.io/IIMRunner/media/og.jpg">
 <link rel="icon" href="game/index.icon.png">
+<link rel="preload" as="fetch" href="game/index.pck" crossorigin>
+<link rel="preload" as="fetch" href="game/index.wasm" crossorigin>
+<link rel="preload" as="image" href="media/ad_splash.jpg">
 <link rel="preload" as="image" href="media/hero-poster.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@400;500;600;700&family=Rozha+One&family=Spline+Sans+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -206,7 +209,6 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:14px 40px;justify-content:space-bet
 #play.waiting{background:#000;display:flex;align-items:center;justify-content:center}
 #play.waiting .ad-splash-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;height:100%;position:relative;background:#0a0503}
 #play.waiting .ad-splash-wrap img{max-width:100%;max-height:100%;object-fit:contain;box-shadow:0 0 50px rgba(0,0,0,0.8)}
-#play.waiting .ad-tag{position:absolute;top:20px;left:24px;background:rgba(0,0,0,0.7);color:var(--saffron);padding:4px 14px;border-radius:20px;font:700 12px "Spline Sans Mono",monospace;letter-spacing:0.12em;text-transform:uppercase;border:1px solid rgba(255,255,255,0.15)}
 #play .ctrl #skip{background:var(--saffron);color:#1c0f0b;border-color:transparent}
 #play video{object-fit:contain;z-index:2}
 #play iframe{z-index:1}
@@ -534,7 +536,6 @@ body.infeat .bar{background:rgba(236,232,224,.74);border-bottom:1px solid rgba(2
 <div id="play" role="dialog" aria-label="Game" aria-modal="true">
   <iframe id="game" title="College Runs" allow="autoplay; fullscreen; gamepad" allowfullscreen></iframe>
   <div class="ad-splash-wrap" id="adSplash" style="display:none">
-    <span class="ad-tag">Official Sponsor</span>
     <img src="media/ad_splash.jpg" alt="Featured Run" draggable="false">
   </div>
   <video id="wake" playsinline preload="none" poster="media/hero-poster.jpg"></video>
@@ -813,11 +814,9 @@ async function bootGame(){
   status.textContent="Loading game…";bar.style.display="block";
   frame.src="game/index.html?map="+gameMap+"&name="+encodeURIComponent(store.get("iimrun_name",""));
   frame.onload=()=>{
-    setTimeout(()=>{
-      play.classList.remove("waiting");
-      if(adSplash)adSplash.style.display="none";
-      status.textContent="";bar.style.display="none";frame.focus();
-    }, 1200);
+    play.classList.remove("waiting");
+    if(adSplash)adSplash.style.display="none";
+    status.textContent="";bar.style.display="none";frame.focus();
   };
 }
 function skip(){if(!clipOn)return;track("intro_skip");bootGame()}
