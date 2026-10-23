@@ -320,7 +320,7 @@ body.infeat .bar{background:rgba(236,232,224,.74);border-bottom:1px solid rgba(2
             <h2>College Runs<em>Fateh Sagar Lake Road</em></h2>
             <p class="bn-sub">Run the real lake road at sunset.</p>
           </div>
-          <div class="bn-art"><img src="media/udaipur-runs.jpg" alt="" width="1600" height="900" draggable="false"><span class="bn-chip">New map</span></div>
+          <div class="bn-art"><img src="media/lake1.jpg" alt="" width="1600" height="900" draggable="false"><span class="bn-chip">New map</span></div>
         </article>
         <article class="bn-slide" aria-label="College Campus">
           <div class="bn-copy">
@@ -333,7 +333,7 @@ body.infeat .bar{background:rgba(236,232,224,.74);border-bottom:1px solid rgba(2
       </div>
       <form class="bn-form" id="featForm" autocomplete="off">
         <label class="bn-lab" for="fName" style="flex-basis:100%">Enter your name to run</label>
-        <input id="fName" maxlength="16" placeholder="Your name" autocomplete="nickname" required>
+        <input id="fName" maxlength="16" placeholder="Enter your name" autocomplete="nickname" required>
         <button class="btn" type="submit" data-track="play_click_feature"><svg viewBox="0 0 14 14"><path d="M2 1l11 6-11 6z"/></svg>Click to play</button>
       </form>
     </div>
@@ -536,7 +536,8 @@ body.infeat .bar{background:rgba(236,232,224,.74);border-bottom:1px solid rgba(2
   <div class="ctrl"><button id="skip">Skip ›</button><button id="closeGame" aria-label="Close game">Close</button></div>
   <div id="over"><div class="box">
     <button class="xbtn" id="oClose" aria-label="Close game">&times;</button><div class="grab" aria-hidden="true"></div><h3>Run over</h3><div class="big" id="oScore">0</div><div style="color:var(--mute)" id="oSub"></div>
-    <div class="row"><input id="oName" maxlength="16" placeholder="Your name (for the board)" autocomplete="nickname"><button class="btn" id="oSave">Save</button></div>
+    <div style="font-size:0.9rem;color:var(--gold);margin:6px 0;letter-spacing:0.04em">✓ Score saved automatically to leaderboard</div>
+    <div class="row" style="display:none"><input id="oName" maxlength="16" placeholder="Your name (for the board)" autocomplete="nickname"><button class="btn" id="oSave">Save</button></div>
     <div class="share" id="shareOver"></div>
     <button class="btn ghost" id="oAgain">Play again</button>
   </div></div>
@@ -592,8 +593,25 @@ function renderBoard(){
     li.children[0].textContent=i+1;li.children[1].textContent=e.name;li.children[2].textContent=e.score;el.append(li)});
 }
 async function submitScore(name,score,map){
+  name=(name||"Runner").trim().slice(0,16);
   const key=boardKey(map),list=store.get(key,[]);
-  const next=[...list.filter(b=>!(b.name===name&&b.score===score)),{name,score}].sort((a,b)=>b.score-a.score).slice(0,10);
+  // Deduplicate by name, keeping only the player's highest score
+  const mapScores=new Map();
+  for(const entry of list){
+    if(!entry.name)continue;
+    const cur=mapScores.get(entry.name);
+    if(cur==null||entry.score>cur){
+      mapScores.set(entry.name,entry.score);
+    }
+  }
+  const prev=mapScores.get(name);
+  if(prev==null||score>prev){
+    mapScores.set(name,score);
+  }
+  const next=[...mapScores.entries()]
+    .map(([n,s])=>({name:n,score:s}))
+    .sort((a,b)=>b.score-a.score)
+    .slice(0,10);
   store.set(key,next);
   if(CONFIG.API){try{await fetch(CONFIG.API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({name,score,map})})}catch{}}
   if(map===boardMap){board=next;renderBoard()}
@@ -680,7 +698,8 @@ addEventListener("scroll",()=>{if(scrollY>innerHeight*.5)maybePrefetch()},{once:
 document.querySelectorAll("#playBtn,#playBtn2,#playBtn3,[data-map]").forEach(b=>b.addEventListener("pointerenter",maybePrefetch,{once:true}));
 
 const fName=$("#fName"),feat=$("#feature"),ban=$("#banner");
-fName.value=store.get("iimrun_name","");
+fName.value="";
+fName.placeholder="Enter your name";
 let bannerOff=false;try{bannerOff=sessionStorage.getItem("iimrun_banner_off")==="1"}catch{}
 function closeBanner(){bannerOff=true;try{sessionStorage.setItem("iimrun_banner_off","1")}catch{}feat.style.display="none";document.body.classList.remove("infeat")}
 if(bannerOff)closeBanner();
@@ -817,9 +836,11 @@ addEventListener("message",e=>{
   if(d.iimrun==="start")track("run_start");
   if(d.iimrun==="over"){
     lastScore=d.score;lastMap=MAPS[d.map]?d.map:gameMap;track("run_over",{score:d.score,map:lastMap});
-    if(d.name){store.set("iimrun_name",d.name);if(d.score>0)submitScore(d.name,d.score,lastMap)}  /* the game asked for the name before the run: straight onto the board */
+    const savedName = d.name || store.get("iimrun_name", "") || "Runner";
+    store.set("iimrun_name", savedName);
+    if(d.score > 0) submitScore(savedName, d.score, lastMap);
     $("#oScore").textContent=d.score;$("#oSub").textContent=`${d.metres} m · ${d.coins} coins`;
-    $("#oName").value=store.get("iimrun_name","");renderShare($("#shareOver"),d.score,lastMap);
+    $("#oName").value=savedName;renderShare($("#shareOver"),d.score,lastMap);
     setTimeout(openOver,900);
   }});
 $("#oSave").onclick=()=>{const n=($("#oName").value.trim()||"Anonymous").slice(0,16);store.set("iimrun_name",n);
