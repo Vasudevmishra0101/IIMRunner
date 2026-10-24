@@ -9,7 +9,8 @@
 <link rel="icon" href="game/index.icon.png">
 <link rel="preload" as="fetch" href="game/index.pck" crossorigin>
 <link rel="preload" as="fetch" href="game/index.wasm" crossorigin>
-<link rel="preload" as="image" href="media/splash_minimal.png">
+<link rel="preload" as="image" href="media/shot1.jpg">
+<link rel="preload" as="image" href="media/lake1.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;700;800&family=Rozha+One&family=Spline+Sans+Mono:wght@500;700&display=swap" rel="stylesheet">
@@ -198,28 +199,46 @@ html, body {
   width: 100%; height: 100%; border: none; display: block;
 }
 
-/* Minimal Fullscreen Loading Screen (Your Custom Splash Image) */
+/* Minimal Fullscreen Loading Screen */
 #loading-overlay {
   position: absolute; inset: 0; z-index: 30;
-  background: #000;
+  background: #0a0503;
   display: none;
   flex-direction: column; align-items: center; justify-content: center;
 }
 #loading-overlay.active { display: flex; }
+#loading-overlay .splash-img-wrap {
+  position: relative;
+  max-width: 92vw; max-height: 80vh;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.85), 0 0 30px rgba(228,73,59,0.3);
+  border: 1px solid rgba(255,255,255,0.14);
+}
 #loading-overlay img {
-  max-width: 95vw; max-height: 85vh;
-  object-fit: contain;
-  box-shadow: 0 0 60px rgba(0,0,0,0.9);
+  width: 100%; height: auto; max-height: 75vh;
+  display: block;
+  object-fit: cover;
+}
+#loading-overlay .map-label-tag {
+  position: absolute; bottom: 16px; left: 16px;
+  background: rgba(0,0,0,0.75);
+  color: #fff;
+  font-family: 'Spline Sans Mono', monospace;
+  font-size: 13px; font-weight: 700;
+  padding: 6px 14px; border-radius: 20px;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  border: 1px solid rgba(255,255,255,0.2);
 }
 .load-progress-bar {
-  position: absolute; bottom: 36px;
-  width: min(280px, 70vw); height: 5px;
-  background: rgba(255,255,255,0.12);
+  position: absolute; bottom: 28px;
+  width: min(320px, 75vw); height: 6px;
+  background: rgba(255,255,255,0.14);
   border-radius: 999px; overflow: hidden;
 }
 .load-progress-fill {
   width: 0%; height: 100%;
-  background: linear-gradient(90deg, var(--blue), var(--primary));
+  background: linear-gradient(90deg, var(--gold), var(--primary));
   transition: width 0.25s ease-out;
 }
 
@@ -271,6 +290,80 @@ html, body {
   background: rgba(255,255,255,0.08); border: 1px solid var(--panel-border);
   border-radius: 12px; color: var(--cream); font: 700 15px sans-serif; cursor: pointer;
 }
+
+/* Game Over Modal Styling */
+#gameover-modal {
+  position: fixed; inset: 0; z-index: 45;
+  background: rgba(10, 5, 3, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  display: none; align-items: center; justify-content: center;
+  padding: 20px;
+}
+#gameover-modal.active { display: flex; }
+.gameover-card {
+  width: min(440px, 92vw);
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 24px;
+  padding: 32px 24px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.75), 0 0 30px var(--primary-glow);
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+  animation: popIn 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+@keyframes popIn {
+  from { opacity: 0; transform: scale(0.92) translateY(14px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+.over-title {
+  font-family: 'Rozha One', Georgia, serif;
+  font-size: 34px; color: var(--cream); margin-bottom: 12px;
+}
+.over-score-wrap {
+  margin: 8px 0 16px;
+}
+.over-score-label {
+  font-family: 'Spline Sans Mono', monospace; font-size: 12px; font-weight: 700;
+  letter-spacing: 0.16em; color: var(--mute);
+}
+.over-score-val {
+  font-family: 'Rozha One', serif; font-size: 68px; color: var(--gold); line-height: 1;
+}
+.over-details {
+  font-size: 15px; font-weight: 600; color: var(--cream); opacity: 0.85; margin-bottom: 12px;
+}
+.best-pill {
+  font-family: 'Spline Sans Mono', monospace; font-size: 13px; font-weight: 700;
+  color: var(--gold); background: rgba(245, 166, 35, 0.1);
+  border: 1px solid rgba(245, 166, 35, 0.3); border-radius: 999px;
+  padding: 6px 16px; margin-bottom: 24px;
+}
+.over-actions {
+  width: 100%; display: flex; flex-direction: column; gap: 10px;
+}
+.play-again-btn {
+  width: 100%; height: 56px;
+  background: linear-gradient(135deg, var(--primary) 0%, #b32a1e 100%);
+  border: none; border-radius: 14px;
+  color: var(--cream); font: 800 18px 'Familjen Grotesk', sans-serif;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  cursor: pointer; box-shadow: 0 6px 20px var(--primary-glow);
+  transition: transform 0.12s, background 0.2s;
+}
+.play-again-btn:hover {
+  background: linear-gradient(135deg, var(--primary-hover) 0%, #c43224 100%);
+  transform: translateY(-2px);
+}
+.play-again-btn:active { transform: translateY(2px) scale(0.98); }
+.play-again-btn svg { width: 16px; height: 16px; fill: currentColor; }
+.menu-return-btn {
+  width: 100%; height: 46px;
+  background: rgba(255,255,255,0.06); border: 1px solid var(--panel-border);
+  border-radius: 12px; color: var(--cream);
+  font: 700 15px 'Familjen Grotesk', sans-serif; cursor: pointer;
+  transition: background 0.2s;
+}
+.menu-return-btn:hover { background: rgba(255,255,255,0.12); }
 </style>
 </head>
 <body>
@@ -321,10 +414,34 @@ html, body {
 <div id="game-container">
   <button class="in-game-exit" id="exitBtn">✕ Main Menu</button>
   <div id="loading-overlay">
-    <img src="media/splash_minimal.png" alt="College Runs Loading" draggable="false">
+    <div class="splash-img-wrap">
+      <img id="splashImg" src="media/shot1.jpg" alt="Map Loading Splash" draggable="false">
+      <span class="map-label-tag" id="splashTag">College Campus</span>
+    </div>
     <div class="load-progress-bar"><div class="load-progress-fill" id="loadFill"></div></div>
   </div>
   <iframe id="game-frame" title="College Runs Game" allow="autoplay; fullscreen; gamepad" allowfullscreen></iframe>
+</div>
+
+<!-- Game Over Modal Overlay -->
+<div id="gameover-modal">
+  <div class="gameover-card">
+    <div class="over-title" id="goTitle">RUN OVER</div>
+    <div class="over-score-wrap">
+      <div class="over-score-label">FINAL SCORE</div>
+      <div class="over-score-val" id="goScore">0</div>
+    </div>
+    <div class="over-details" id="goDetails">Distance: 0 m &nbsp;•&nbsp; Coins: 0</div>
+    <div class="best-pill" id="goBest">Personal Best: 0</div>
+
+    <div class="over-actions">
+      <button class="play-again-btn" id="goAgainBtn">
+        <svg viewBox="0 0 14 14"><path d="M2 1l11 6-11 6z"/></svg>
+        PLAY AGAIN
+      </button>
+      <button class="menu-return-btn" id="goMenuBtn">Main Menu</button>
+    </div>
+  </div>
 </div>
 
 <!-- Leaderboard Modal -->
@@ -353,10 +470,32 @@ const gameContainer = document.getElementById('game-container');
 const gameFrame = document.getElementById('game-frame');
 const loadingOverlay = document.getElementById('loading-overlay');
 const loadFill = document.getElementById('loadFill');
+const splashImg = document.getElementById('splashImg');
+const splashTag = document.getElementById('splashTag');
 const exitBtn = document.getElementById('exitBtn');
 const mapButtons = document.querySelectorAll('.map-btn');
 
+// Game Over Elements
+const gameoverModal = document.getElementById('gameover-modal');
+const goScore = document.getElementById('goScore');
+const goDetails = document.getElementById('goDetails');
+const goBest = document.getElementById('goBest');
+const goAgainBtn = document.getElementById('goAgainBtn');
+const goMenuBtn = document.getElementById('goMenuBtn');
+
 let selectedMap = store.get('iimrun_map', 'campus');
+
+// Update splash preview dynamically
+function updateSplashPreview(map) {
+  if (map === 'fatehsagar') {
+    splashImg.src = 'media/lake1.jpg';
+    splashTag.textContent = 'Fateh Sagar Lake Road';
+  } else {
+    splashImg.src = 'media/shot1.jpg';
+    splashTag.textContent = 'College Campus';
+  }
+}
+updateSplashPreview(selectedMap);
 
 // 1. Calculate & Display User's Best Score Ever Achieved
 function updateBestScore() {
@@ -376,7 +515,7 @@ updateBestScore();
   } catch(e) {}
 })();
 
-// 3. Name Input (default to empty placeholder every refresh per request)
+// 3. Name Input
 playerNameInput.value = '';
 playerNameInput.placeholder = 'Enter Nickname';
 
@@ -391,19 +530,16 @@ mapButtons.forEach(btn => {
     btn.classList.add('active');
     selectedMap = btn.dataset.map;
     store.set('iimrun_map', selectedMap);
+    updateSplashPreview(selectedMap);
   };
 });
 
-// 4. 1-Click Instant Game Launcher
-playForm.onsubmit = (e) => {
-  e.preventDefault();
-  let name = playerNameInput.value.trim();
-  if (!name) name = 'Runner';
-  store.set('iimrun_name', name);
-
-  // Transition to game
+// Launch function
+function startGameSession(name, map) {
+  gameoverModal.classList.remove('active');
   hub.classList.add('hidden');
   gameContainer.classList.add('active');
+  updateSplashPreview(map);
   loadingOverlay.classList.add('active');
   loadFill.style.width = '20%';
 
@@ -412,8 +548,7 @@ playForm.onsubmit = (e) => {
     if (cur < 90) loadFill.style.width = (cur + 15) + '%';
   }, 100);
 
-  // Load Godot game iframe
-  gameFrame.src = `game/index.html?map=${selectedMap}&name=${encodeURIComponent(name)}`;
+  gameFrame.src = `game/index.html?map=${map}&name=${encodeURIComponent(name)}`;
   gameFrame.onload = () => {
     clearInterval(simProgress);
     loadFill.style.width = '100%';
@@ -422,10 +557,33 @@ playForm.onsubmit = (e) => {
       gameFrame.focus();
     }, 350);
   };
+}
+
+// 4. 1-Click Instant Game Launcher
+playForm.onsubmit = (e) => {
+  e.preventDefault();
+  let name = playerNameInput.value.trim();
+  if (!name) name = 'Runner';
+  store.set('iimrun_name', name);
+  startGameSession(name, selectedMap);
+};
+
+// Play Again & Return Actions
+goAgainBtn.onclick = () => {
+  const name = store.get('iimrun_name', 'Runner');
+  startGameSession(name, selectedMap);
+};
+goMenuBtn.onclick = () => {
+  gameoverModal.classList.remove('active');
+  gameFrame.src = 'about:blank';
+  gameContainer.classList.remove('active');
+  hub.classList.remove('hidden');
+  updateBestScore();
 };
 
 // 5. In-Game Exit (Back to Hub)
 exitBtn.onclick = () => {
+  gameoverModal.classList.remove('active');
   gameFrame.src = 'about:blank';
   gameContainer.classList.remove('active');
   hub.classList.remove('hidden');
@@ -440,6 +598,8 @@ window.addEventListener('message', (e) => {
     const score = d.score || 0;
     const map = d.map || selectedMap;
     const name = d.name || store.get('iimrun_name', 'Runner');
+    const coins = d.coins || 0;
+    const metres = d.metres || 0;
 
     // Update Personal Best
     const bestKey = `iimrun_best_${map}`;
@@ -467,6 +627,13 @@ window.addEventListener('message', (e) => {
       .sort((a, b) => b.score - a.score)
       .slice(0, 10);
     store.set(key, next);
+
+    // Show Game Over UI Modal with Score & Play Again
+    goScore.textContent = score.toLocaleString();
+    goDetails.textContent = `Distance: ${metres} m  •  Coins: ${coins}`;
+    const highestBest = Math.max(store.get('iimrun_best_campus', 0), store.get('iimrun_best_fatehsagar', 0), score);
+    goBest.textContent = `Personal Best: ${highestBest.toLocaleString()}`;
+    gameoverModal.classList.add('active');
   }
 });
 
