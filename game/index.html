@@ -55,10 +55,12 @@ body {
 }
 
 #status-splash {
-	max-height: 90vh;
-	max-width: 95vw;
-	margin: auto;
-	box-shadow: 0 0 50px rgba(0,0,0,0.9);
+	position: absolute;
+	inset: 0;
+	width: 100vw;
+	height: 100vh;
+	object-fit: cover;
+	object-position: center;
 }
 
 #status-splash.show-image--false {
@@ -66,9 +68,10 @@ body {
 }
 
 #status-splash.fullsize--true {
-	height: 100%;
-	width: 100%;
-	object-fit: contain;
+	height: 100vh;
+	width: 100vw;
+	object-fit: cover;
+	object-position: center;
 }
 
 #status-splash.use-filter--false {
@@ -118,6 +121,22 @@ body {
 			<div id="status-notice"></div>
 		</div>
 
+		<script>
+// Dynamic map splash selector
+(function() {
+	try {
+		const m = new URLSearchParams(window.location.search).get('map');
+		const splashEl = document.getElementById('status-splash');
+		if (splashEl) {
+			if (m === 'fatehsagar') {
+				splashEl.src = '../media/lake1.jpg';
+			} else {
+				splashEl.src = '../media/shot1.jpg';
+			}
+		}
+	} catch(e) {}
+})();
+</script>
 		<script>
 // Mobile touch & audio unlock helper
 (function() {

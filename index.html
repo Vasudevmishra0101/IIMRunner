@@ -413,13 +413,6 @@ html, body {
 <!-- Game Viewport Frame -->
 <div id="game-container">
   <button class="in-game-exit" id="exitBtn">✕ Main Menu</button>
-  <div id="loading-overlay">
-    <div class="splash-img-wrap">
-      <img id="splashImg" src="media/shot1.jpg" alt="Map Loading Splash" draggable="false">
-      <span class="map-label-tag" id="splashTag">College Campus</span>
-    </div>
-    <div class="load-progress-bar"><div class="load-progress-fill" id="loadFill"></div></div>
-  </div>
   <iframe id="game-frame" title="College Runs Game" allow="autoplay; fullscreen; gamepad" allowfullscreen></iframe>
 </div>
 
@@ -468,10 +461,6 @@ const playerNameInput = document.getElementById('playerName');
 const topScoreEl = document.getElementById('topScore');
 const gameContainer = document.getElementById('game-container');
 const gameFrame = document.getElementById('game-frame');
-const loadingOverlay = document.getElementById('loading-overlay');
-const loadFill = document.getElementById('loadFill');
-const splashImg = document.getElementById('splashImg');
-const splashTag = document.getElementById('splashTag');
 const exitBtn = document.getElementById('exitBtn');
 const mapButtons = document.querySelectorAll('.map-btn');
 
@@ -484,18 +473,6 @@ const goAgainBtn = document.getElementById('goAgainBtn');
 const goMenuBtn = document.getElementById('goMenuBtn');
 
 let selectedMap = store.get('iimrun_map', 'campus');
-
-// Update splash preview dynamically
-function updateSplashPreview(map) {
-  if (map === 'fatehsagar') {
-    splashImg.src = 'media/lake1.jpg';
-    splashTag.textContent = 'Fateh Sagar Lake Road';
-  } else {
-    splashImg.src = 'media/shot1.jpg';
-    splashTag.textContent = 'College Campus';
-  }
-}
-updateSplashPreview(selectedMap);
 
 // 1. Calculate & Display User's Best Score Ever Achieved
 function updateBestScore() {
@@ -530,32 +507,19 @@ mapButtons.forEach(btn => {
     btn.classList.add('active');
     selectedMap = btn.dataset.map;
     store.set('iimrun_map', selectedMap);
-    updateSplashPreview(selectedMap);
   };
 });
 
-// Launch function
+// Launch function - Instant Single Loading Screen directly in engine
 function startGameSession(name, map) {
   gameoverModal.classList.remove('active');
   hub.classList.add('hidden');
   gameContainer.classList.add('active');
-  updateSplashPreview(map);
-  loadingOverlay.classList.add('active');
-  loadFill.style.width = '20%';
 
-  const simProgress = setInterval(() => {
-    const cur = parseFloat(loadFill.style.width) || 20;
-    if (cur < 90) loadFill.style.width = (cur + 15) + '%';
-  }, 100);
-
+  // Load Godot game directly (single loading splash rendered by the engine full screen)
   gameFrame.src = `game/index.html?map=${map}&name=${encodeURIComponent(name)}`;
   gameFrame.onload = () => {
-    clearInterval(simProgress);
-    loadFill.style.width = '100%';
-    setTimeout(() => {
-      loadingOverlay.classList.remove('active');
-      gameFrame.focus();
-    }, 350);
+    gameFrame.focus();
   };
 }
 
