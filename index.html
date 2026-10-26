@@ -516,8 +516,8 @@ function startGameSession(name, map) {
   hub.classList.add('hidden');
   gameContainer.classList.add('active');
 
-  // Load Godot game directly (single loading splash rendered by the engine full screen)
-  gameFrame.src = `game/index.html?map=${map}&name=${encodeURIComponent(name)}`;
+  // Load Godot game directly with auto=1 so it starts immediately into the run without showing Godot's desktop menu
+  gameFrame.src = `game/index.html?map=${map}&name=${encodeURIComponent(name)}&auto=1`;
   gameFrame.onload = () => {
     gameFrame.focus();
   };
